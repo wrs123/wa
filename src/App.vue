@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <router-link  to="/scan" ></router-link>
     <router-view/>
   </div>
 </template>
@@ -18,5 +19,4 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
-
 </style>

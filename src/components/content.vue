@@ -1,10 +1,11 @@
 <template>
-  <div>内容</div>
+  <div>内容{{activeName}}</div>
 </template>
 
 <script>
 export default {
-  name: "content"
+  name: "customContent",
+  props: ['activeName'],
 }
 </script>
 
