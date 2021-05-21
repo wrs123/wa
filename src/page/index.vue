@@ -22,6 +22,7 @@
               报告
             </MenuItem>
           </div>
+          <Button shape="circle" icon="md-settings"></Button>
         </Menu>
       </Header>
       <Content class="content">
