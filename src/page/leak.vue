@@ -1,6 +1,7 @@
 <template>
   <div class="layout">
     <Layout>
+      <custom-sidebar></custom-sidebar>
       <custom-header v-bind:activeName="activeMenuItem" @clickItem="clickItem"></custom-header>
       <custom-content class="content" v-bind:activeName="activeMenuItem">
       </custom-content>
@@ -34,7 +35,7 @@ export default {
       if(res.name != this.$data.activeMenuItem){
         console.log(res)
         this.$data.activeMenuItem = res.name
-        this.$router.push({path: res.path})
+        this.$router.push({path: '/page'+res.path})
       }
     }
   }

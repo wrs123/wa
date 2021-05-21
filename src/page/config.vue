@@ -1,10 +1,10 @@
 <template>
   <div class="layout">
     <Layout>
-      <custom-sidebar></custom-sidebar>
       <custom-header v-bind:activeName="activeMenuItem" @clickItem="clickItem"></custom-header>
-      <custom-content class="content" v-bind:activeName="activeMenuItem">
-      </custom-content>
+      <div class="content">
+        设置
+      </div>
       <custom-footer></custom-footer>
     </Layout>
   </div>
@@ -12,21 +12,19 @@
 
 <script>
 import Sidebar from '@/components/sidebar'
-import Content from '@/components/content'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 
 export default {
-  name: "report",
+  name: "config",
   components: {
     'custom-sidebar':Sidebar,
-    'custom-content':Content,
     'custom-footer': Footer,
     'custom-header': Header
   },
   data () {
     return {
-      activeMenuItem: "4"
+      activeMenuItem: "0"
     }
   },
   methods: {

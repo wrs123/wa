@@ -2,28 +2,11 @@ $navbarHeight: 64px;
 $footerHeight: 50px;
 $h: $navbarHeight + $footerHeight;
 
-.layout-logo{
-  width: 100px;
-  height: 30px;
-  background: #5b6270;
-  border-radius: 3px;
-  float: left;
-  position: relative;
-  top: 15px;
-  left: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.layout-nav{
-  width: 420px;
-  margin: 0 auto;
-}
 .layout-footer-center{
   text-align: center;
 }
 .ivu-layout-footer{
-  background: #f5f7f9;
+  background: #fff;
   height: $footerHeight;
   color: #515a6e;
   font-size: 14px;
@@ -35,29 +18,24 @@ $h: $navbarHeight + $footerHeight;
   justify-content: center;
 }
 
-.layout-logo span{
-  color: #fff;
-  display: inline;
-  line-height: 17px;
-  font-size: 17px;
-}
 
 .content{
   width: 100vw;
   height: calc(100vh - #{$h});
   position: fixed;
   top: $navbarHeight;
+  background: #f8f8f9;
 }
-
-.layout-button{
-  cursor: pointer;
-  position: absolute;
-  right: 20px;
-  display: flex;
-  top: calc(50% - 10.5px);;
-  color: #fff;
-  font-size: 18px;
-  padding: 3px;
-  border: 1px solid #fff;
-  border-radius: 50%;
+.sidebar{
+  position: fixed;
+  right: 10px;
+  top: 30%;
+  z-index: 999999;
+  padding: 5px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.08);
+}
+.sidebar .sidebar-items{
+  padding: 5px;
 }

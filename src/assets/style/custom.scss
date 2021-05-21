@@ -1,3 +1,46 @@
 html, body{
   height: 100vh;
 }
+
+$navbarHeight: 64px;
+$footerHeight: 50px;
+$h: $navbarHeight + $footerHeight;
+
+.layout-footer-center{
+  text-align: center;
+}
+.ivu-layout-footer{
+  background: #fff;
+  height: $footerHeight;
+  color: #515a6e;
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.content{
+  width: 100vw;
+  height: calc(100vh - #{$h});
+  position: fixed;
+  top: $navbarHeight;
+  background: #f8f8f9;
+}
+.sidebar{
+  position: fixed;
+  right: 10px;
+  top: 30%;
+  z-index: 999999;
+  padding: 5px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.08);
+}
+.sidebar .sidebar-items{
+  padding: 5px;
+}
+

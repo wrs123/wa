@@ -20,7 +20,7 @@
           报告
         </MenuItem>
       </div>
-      <div class="layout-button">
+      <div class="layout-button" @click="clickItem('5')">
         <Icon type="md-settings" />
       </div>
     </Menu>
@@ -37,7 +37,8 @@ export default {
         "1": '/scan',
         "2": '/asset',
         "3": '/leak',
-        "4": 'report'
+        "4": '/report',
+        "5": '/config'
       }
 
       this.$emit('clickItem',{name: name, path: pathMap[name]});
@@ -51,7 +52,7 @@ export default {
 .layout-logo{
   width: 100px;
   height: 30px;
-  background: #5b6270;
+  background: transparent;
   border-radius: 3px;
   float: left;
   position: relative;
@@ -84,5 +85,8 @@ export default {
   padding: 3px;
   border: 1px solid #fff;
   border-radius: 50%;
+}
+.ivu-menu, .ivu-layout-header{
+  background: #2b85e4;
 }
 </style>
