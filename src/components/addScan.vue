@@ -68,7 +68,7 @@ export default {
   }
 
   .custom-modal .header .title, .custom-modal .header .closeButton{
-    padding: 10px;
+    padding: 10px 20px;
     font-size: 15px;
   }
 
@@ -78,6 +78,6 @@ export default {
   }
 
   .custom-modal .content{
-    padding: 5px;
+    padding: 20px;
   }
 </style>
