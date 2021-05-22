@@ -7,18 +7,23 @@
       </div>
     </div>
     <div class="content">
-      表单
+      <AddTask v-if="value.type=='add'"></AddTask>
     </div>
   </div>
 </template>
 
 <script>
+import AddTask from "./modal/addTask";
+
 export default {
   name: "addScan",
   data(){
     return{
       value: this.data
     }
+  },
+  components: {
+    AddTask
   },
   props:{
     data: {
@@ -44,7 +49,7 @@ export default {
     position: fixed;
     top: 100px;
     background: #fff;
-    z-index: 99999999999;
+    z-index: 999;
     right: 80px;
     /*left: 20px;*/
     bottom: 80px;

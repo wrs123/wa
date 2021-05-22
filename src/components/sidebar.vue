@@ -19,7 +19,7 @@ export default {
   data () {
     return {
       itemList: [{icon: 'md-add', tip: '添加任务', type: 'add', isActive: false},
-        {icon: 'md-time', tip: '任务历史', type: 'history', isActive: true}],
+        {icon: 'md-time', tip: '任务历史', type: 'history', isActive: false}],
       show:false,
       showData: {
         title: '',
@@ -56,6 +56,7 @@ export default {
     },
     closeModel(){
       this.$data.show = false
+
     }
   }
 }
