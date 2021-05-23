@@ -87,6 +87,6 @@ export default {
   border-radius: 50%;
 }
 .ivu-menu, .ivu-layout-header{
-  background: #2d8cf0;
+  background: #2d8cf0!important;
 }
 </style>

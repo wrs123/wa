@@ -6,7 +6,7 @@
         <Icon type="md-close" />
       </div>
     </div>
-    <div class="content">
+    <div class="modal-content">
       <AddTask v-if="value.type=='add'"></AddTask>
     </div>
   </div>
@@ -77,7 +77,8 @@ export default {
     cursor: pointer;
   }
 
-  .custom-modal .content{
+  .custom-modal .modal-content{
     padding: 20px;
   }
+  
 </style>
