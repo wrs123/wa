@@ -31,5 +31,45 @@ $h: $navbarHeight + $footerHeight;
   background: #f8f8f9;
 }
 
+//滚动条样式
+*::-webkit-scrollbar {/*滚动条整体样式*/
+  width: 5px;
+  height: 1px;
+}
+
+*::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+  background: #808695;
+}
+
+*::-webkit-scrollbar-track {/*滚动条里面轨道*/
+  background: #f8f8f9;
+
+}
+
+
+//animate
+/*进入过渡的结束状态，元素被插入时就生效，在过渡过程完成后移除*/
+.big-enter-active {
+  right: 80px;
+  opacity: 1;
+  transition: all .5s;
+}
+/*进入过渡的开始状态，元素被插入时生效，只应用一帧后立刻删除*/
+.big-enter {
+  right: 10px;
+  opacity: 0;
+  transition: right 3s, opacity .1s;
+}
+/*离开过渡的开始状态，元素被删除时触发，只应用一帧后立刻删除*/
+.big-leave-to {
+  right: 80px;
+  opacity: 1;
+}
+/*离开过渡的结束状态，元素被删除时生效，离开过渡完成后被删除*/
+.big-leave-active {
+  right: 10px;
+  opacity: 0;
+  transition: right .5s, opacity .1s;
+}
 
 

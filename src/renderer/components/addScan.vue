@@ -56,7 +56,8 @@ export default {
     border-radius: 5px;
     transition: all .3s;
     box-shadow: 0 0 20px 0 rgba(0,0,0,.1);
-    min-width: 200px;
+    overflow: hidden;
+    box-sizing: border-box;
   }
 
   .custom-modal .header{
@@ -75,10 +76,13 @@ export default {
   .custom-modal .header .closeButton{
     font-size: 20px;
     cursor: pointer;
+
   }
 
   .custom-modal .modal-content{
     padding: 20px;
+    height: calc(100% - 51px);
+    overflow: auto;
   }
-  
+
 </style>

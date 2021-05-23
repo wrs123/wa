@@ -7,7 +7,7 @@
         </div>
       </Tooltip>
     </div>
-    <AddScan @close="closeModel" v-if="show" :data="showData"></AddScan>
+    <transition name="big" mode="out-in"><AddScan @close="closeModel" v-if="show" :data="showData"></AddScan></transition>
   </div>
 </template>
 
@@ -51,12 +51,19 @@ export default {
       }
       this.$data.itemList = newList
       this.$data.showData = showData
-      this.$data.show = true
+      this.openModel()
+
 
     },
     closeModel(){
       this.$data.show = false
-
+    },
+    openModel(){
+      let that = this
+      this.closeModel()
+      setTimeout(function(){
+        that.$data.show = true
+      },1)
     }
   }
 }
