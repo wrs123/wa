@@ -7,7 +7,7 @@
         </div>
       </Tooltip>
     </div>
-    <transition name="big" mode="out-in"><AddScan @close="closeModel" v-if="show" :data="showData"></AddScan></transition>
+    <AddScan @close="closeModel" :display="show" :data="showData"></AddScan>
   </div>
 </template>
 
@@ -24,7 +24,8 @@ export default {
       showData: {
         title: '',
         type: ''
-      }
+      },
+    
     }
   },
   components: {
@@ -69,7 +70,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
   .sidebar{
     position: fixed;
     padding: 5px 0;
@@ -107,7 +108,7 @@ export default {
   }
   .sidebar .sidebar-items>i{
     font-size: 25px;
-    color: #5c6b77;
+    color: $titleColor;
   }
 
 </style>

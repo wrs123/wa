@@ -62,6 +62,10 @@ export default {
     //开始扫描
     startScan(){
       let param = this.formItem
+      if(param.scan_port_type != 'custom'){
+        param.custom_port = ''
+      }
+      console.log(param, this.$route.path)
       //todo
     }
   },

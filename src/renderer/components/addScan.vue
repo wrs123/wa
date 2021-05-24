@@ -1,14 +1,21 @@
 <template>
-  <div class="custom-modal">
-    <div class="header">
-      <span class="title">{{value.title}}</span>
-      <div class="closeButton" @click="close">
-        <Icon type="md-close" />
+  <div>
+    
+    <div class="modal-mask" v-if="show" @click="close"></div>
+
+  <transition name="big">
+      <div class="custom-modal" v-if="show">
+        <div class="header">
+          <span class="title">{{value.title}}</span>
+          <div class="closeButton" @click="close">
+            <Icon type="md-close" />
+          </div>
+        </div>
+        <div class="modal-content">
+          <AddTask v-if="value.type=='add'"></AddTask>
+        </div>
       </div>
-    </div>
-    <div class="modal-content">
-      <AddTask v-if="value.type=='add'"></AddTask>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -19,7 +26,8 @@ export default {
   name: "addScan",
   data(){
     return{
-      value: this.data
+      value: this.data,
+      show: this.display
     }
   },
   components: {
@@ -28,6 +36,9 @@ export default {
   props:{
     data: {
       type: Object
+    },
+    display: {
+      type: Boolean
     }
   },
   methods: {
@@ -39,12 +50,23 @@ export default {
     data(newVal, oldVal){
       console.log(newVal, oldVal)
       this.value = newVal;
+    },
+    display(newVal, oldVal){
+      console.log(newVal, oldVal)
+      this.show = newVal;
     }
   }
 }
 </script>
 
 <style>
+  .modal-mask{
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,.1);
+    position: fixed;
+    z-index: 9;
+  }
   .custom-modal{
     position: fixed;
     top: 100px;

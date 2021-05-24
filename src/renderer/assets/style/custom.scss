@@ -5,6 +5,20 @@ html, body{
 $navbarHeight: 64px;
 $footerHeight: 50px;
 $h: $navbarHeight + $footerHeight;
+$contentColor: #515a6e;
+$titleColor: #17233d;
+$SubColor: #808695;
+$disabledColor: #c5c8ce;
+$borderColor: #dcdee2;
+$dividerColor: #e8eaec;
+$backgorundColor: #f8f8f9;
+$primaryColor: #2d8cf0;
+$lightPrimaryColor: #5cadff;
+$darkPrimaryColor: #2b85e4;
+$info: #2db7f5;
+$success: #19be6b;
+$warning: #ff9900;
+$error: #ed4014;
 
 .layout-footer-center{
   text-align: center;
@@ -52,7 +66,6 @@ $h: $navbarHeight + $footerHeight;
 .big-enter-active {
   right: 80px;
   opacity: 1;
-  transition: all .5s;
 }
 /*进入过渡的开始状态，元素被插入时生效，只应用一帧后立刻删除*/
 .big-enter {
@@ -69,7 +82,28 @@ $h: $navbarHeight + $footerHeight;
 .big-leave-active {
   right: 10px;
   opacity: 0;
-  transition: right .5s, opacity .1s;
+  transition: right .3s, opacity .1s;
+}
+
+.customFade-enter-active {
+
+  opacity: 1;
+}
+/*进入过渡的开始状态，元素被插入时生效，只应用一帧后立刻删除*/
+.customFade-enter {
+
+  opacity: 0;
+  transition:opacity .1s;
+}
+/*离开过渡的开始状态，元素被删除时触发，只应用一帧后立刻删除*/
+.customFade-leave-to {
+
+  opacity: 1;
+}
+/*离开过渡的结束状态，元素被删除时生效，离开过渡完成后被删除*/
+.customFade-leave-active {
+  opacity: 0;
+  transition:opacity .1s;
 }
 
 
