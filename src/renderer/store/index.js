@@ -1,10 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import data from './modules/data'
+import scan from './modules/scan'
+import modal from './modules/modal'
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  data
+  modules: {
+    scan,
+    modal
+  }
 });
 
 export default store;

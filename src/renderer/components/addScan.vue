@@ -1,18 +1,18 @@
 <template>
   <div>
-    
+
     <div class="modal-mask" v-if="show" @click="close"></div>
 
   <transition name="big">
       <div class="custom-modal" v-if="show">
         <div class="header">
-          <span class="title">{{value.title}}</span>
+          <span class="title">{{showData.title}}</span>
           <div class="closeButton" @click="close">
             <Icon type="md-close" />
           </div>
         </div>
         <div class="modal-content">
-          <AddTask v-if="value.type=='add'"></AddTask>
+          <AddTask v-if="showData.type=='add'" ></AddTask>
         </div>
       </div>
     </transition>
@@ -21,13 +21,13 @@
 
 <script>
 import AddTask from "./modal/addTask";
+import {mapState,mapGetters,mapActions} from 'vuex';
 
 export default {
   name: "addScan",
   data(){
     return{
       value: this.data,
-      show: this.display
     }
   },
   components: {
@@ -42,19 +42,16 @@ export default {
     }
   },
   methods: {
+    ...mapActions('modal',['setShow']),
     close(){
-      this.$emit('close',"");
+      this.setShow(false)
     }
   },
-  watch: {
-    data(newVal, oldVal){
-      console.log(newVal, oldVal)
-      this.value = newVal;
-    },
-    display(newVal, oldVal){
-      console.log(newVal, oldVal)
-      this.show = newVal;
-    }
+  computed: {
+    ...mapGetters('modal',{
+      show: 'getShow',
+      showData: 'getData'
+    })
   }
 }
 </script>

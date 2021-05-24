@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: "addTask",
   data(){
@@ -59,6 +61,8 @@ export default {
     }
   },
   methods: {
+    ...mapActions('scan', ['setScanStatus']),
+    ...mapActions('modal', ['setAll']),
     //开始扫描
     startScan(){
       let param = this.formItem
@@ -66,6 +70,8 @@ export default {
         param.custom_port = ''
       }
       console.log(param, this.$route.path)
+      this.setScanStatus(1)
+      this.setAll({data: {title: '',name: ''},show: false})
       //todo
     }
   },

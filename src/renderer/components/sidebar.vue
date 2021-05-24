@@ -7,31 +7,34 @@
         </div>
       </Tooltip>
     </div>
+    <span>{{show}}</span>
     <AddScan @close="closeModel" :display="show" :data="showData"></AddScan>
   </div>
 </template>
 
 <script>
 import AddScan from "./addScan";
+import {mapState,mapGetters,mapActions} from 'vuex';
 
 export default {
   name: "sidebar",
   data () {
     return {
       itemList: [{icon: 'md-add', tip: '添加任务', type: 'add', isActive: false},
-        {icon: 'md-time', tip: '任务历史', type: 'history', isActive: false}],
-      show:false,
-      showData: {
-        title: '',
-        type: ''
-      },
-    
+        {icon: 'md-time', tip: '任务历史', type: 'history', isActive: false}]
     }
+  },
+  computed: {
+    ...mapGetters('modal',{
+      show: 'getShow',
+      showData: 'getData'
+    }),
   },
   components: {
     AddScan
   },
   methods: {
+    ...mapActions('modal',['setShow','setData']),
     itemClick(item){
       console.log(item)
       let itemList = this.$data.itemList,
@@ -51,19 +54,19 @@ export default {
         newList.push(itemList[i])
       }
       this.$data.itemList = newList
-      this.$data.showData = showData
+      this.setData(showData)
       this.openModel()
 
 
     },
     closeModel(){
-      this.$data.show = false
+      this.setShow(false)
     },
     openModel(){
       let that = this
       this.closeModel()
       setTimeout(function(){
-        that.$data.show = true
+        that.setShow(true)
       },1)
     }
   }
