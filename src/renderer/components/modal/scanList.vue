@@ -9,6 +9,7 @@
 
 <script>
 import scanListTemplate from './scanListTemplate'
+import {mapState,mapGetters,mapActions} from 'vuex';
 
 export default {
   name: "scanList",
@@ -54,18 +55,34 @@ export default {
                     width: 85,
                     render: (h, params) => {
                       return h('div', [
-                        h('Button', {
-                          props: {
-                            type: 'text',
-                            size: 'small',
-                            icon: 'md-more'
-                          }
-                        }),
+                        h('Tooltip', {attrs:{
+                            content:'资产',
+                            placement: 'top'
+                        }},[
+                          h('Button', {
+                            props: {
+                              type: 'text',
+                              size: 'small',
+                              icon: 'md-apps'
+                            },
+                            on: {
+                              click: ()=>{
+                                this.setShow(false)
+                                this.$router.push("/page/asset")
+                              }
+                            }
+                          })
+                        ]),
                         h('Button', {
                           props: {
                             type: 'text',
                             size: 'small',
                             icon: 'md-trash'
+                          },
+                          on: {
+                            click: ()=>{
+                              this.confirm()
+                            }
                           }
                         })
                       ]);
@@ -82,10 +99,36 @@ export default {
                     status: '运行中',
                     leak: 2,
                     id: 0
-                }
+                },
+              {
+                type: 'mysql爆破',
+                ctime: '2021-09-12',
+                name: '任务1',
+                mode: '每天一次',
+                property: 5,
+                status: '运行中',
+                leak: 2,
+                id: 0
+              }
             ]
         }
     }
+  },
+  methods: {
+    ...mapActions('modal', ['setShow']),
+    confirm () {
+      this.$Modal.confirm({
+        title: '提示',
+        okText: '删除',
+        content: '<p>是否确定删除？</p>',
+        onOk: () => {
+          this.$Message.info('Clicked ok');
+        },
+        onCancel: () => {
+          this.$Message.info('Clicked cancel');
+        }
+      });
+    },
   }
 }
 </script>
