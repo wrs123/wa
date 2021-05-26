@@ -1,8 +1,6 @@
 <template>
   <div>
-
     <div class="modal-mask" v-if="show" @click="close"></div>
-
   <transition name="big">
       <div class="custom-modal" v-if="show">
         <div class="header">
@@ -13,6 +11,7 @@
         </div>
         <div class="modal-content">
           <AddTask v-if="showData.type=='add'" ></AddTask>
+          <ScanList v-if="showData.type=='list'"></ScanList>
         </div>
       </div>
     </transition>
@@ -21,6 +20,7 @@
 
 <script>
 import AddTask from "./modal/addTask";
+import ScanList from "./modal/scanList"
 import {mapState,mapGetters,mapActions} from 'vuex';
 
 export default {
@@ -31,7 +31,7 @@ export default {
     }
   },
   components: {
-    AddTask
+    AddTask,ScanList
   },
   props:{
     data: {

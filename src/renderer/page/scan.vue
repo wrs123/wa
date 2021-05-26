@@ -54,13 +54,18 @@ export default {
       }
     },
     ...mapActions('modal',['setAll']),
+    ...mapActions('scan', ['setScanStatus']),
     addScan(){
-      let param = {
-        data: {title: '添加任务',
-          type: 'add'},
-        show: true
+      if(this.scanStatus != 1){
+        let param = {
+          data: {title: '添加任务',
+            type: 'add'},
+          show: true
+        }
+        this.setAll(param)
+      }else if(this.scanStatus= 1){
+        this.setScanStatus(0)
       }
-      this.setAll(param)
     }
   }
 }
@@ -118,14 +123,35 @@ export default {
     border-radius: 50%;
     position: relative;
     display: flex;
+    cursor: pointer;
     align-items: center;
     justify-content: center;
-    transition: width .7s, height .7s, font-size .1s;
+    transition: width .7s, height .7s, font-size .3s;
     will-change: all;
     font-weight: 600;
-    cursor: pointer;
     box-shadow: rgba(0,0,0,.3) 0px 0px 5px 1px;
     text-shadow: 0 -1px 1px rgba(0,0,0,.25);
+  }
+
+  .scan-button.starting:hover{
+    background: $error;
+  }
+  .scan-button.starting:hover::before{
+    content: "停止";
+    display: block;
+    position:absolute;
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    top: 10px;
+    background: $error;
+    left: 10px;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    border-radius: 50%;
+    border: 4px solid rgba(255,255,255, .35);
   }
 
   .scan-button.starting::before{
@@ -138,7 +164,7 @@ export default {
     width: calc(100% - 20px);
     height: calc(100% - 20px);
     border-radius: 50%;
-    border: 4px solid rgba(255,255,255, .5);
+    border: 4px solid rgba(255,255,255, .35);
   }
   .scan-button.starting::after{
     content: "";

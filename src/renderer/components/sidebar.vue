@@ -7,7 +7,6 @@
         </div>
       </Tooltip>
     </div>
-    <span>{{show}}</span>
     <AddScan @close="closeModel" :display="show" :data="showData"></AddScan>
   </div>
 </template>
@@ -21,7 +20,7 @@ export default {
   data () {
     return {
       itemList: [{icon: 'md-add', tip: '添加任务', type: 'add', isActive: false},
-        {icon: 'md-time', tip: '任务历史', type: 'history', isActive: false}]
+        {icon: 'md-time', tip: '任务列表', type: 'list', isActive: false}]
     }
   },
   computed: {

@@ -26,7 +26,7 @@ $error: #ed4014;
 .ivu-layout-footer{
   background: #fff;
   height: $footerHeight;
-  color: #515a6e;
+  color: $contentColor;
   font-size: 14px;
   position: fixed;
   bottom: 0;
@@ -42,7 +42,7 @@ $error: #ed4014;
   height: calc(100vh - #{$h});
   position: fixed;
   top: $navbarHeight;
-  background: #f8f8f9;
+  background: $backgorundColor;
 }
 
 //滚动条样式
@@ -52,11 +52,11 @@ $error: #ed4014;
 }
 
 *::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
-  background: #808695;
+  background: $SubColor;
 }
 
 *::-webkit-scrollbar-track {/*滚动条里面轨道*/
-  background: #f8f8f9;
+  background: $backgorundColor;
 
 }
 

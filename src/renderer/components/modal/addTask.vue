@@ -70,6 +70,9 @@ export default {
         param.custom_port = ''
       }
       console.log(param, this.$route.path)
+      if(this.$route.path!='/page/scan'){
+        this.$router.push('/page/scan');
+      }
       this.setScanStatus(1)
       this.setAll({data: {title: '',name: ''},show: false})
       //todo
