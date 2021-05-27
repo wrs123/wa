@@ -4,13 +4,13 @@ import Vue from 'vue'
 import store from './store'
 import App from './App'
 import router from './router'
-import ViewUI from 'view-design'
-import 'view-design/dist/styles/iview.css'
+import iView from 'iview'
+import 'iview/dist/styles/iview.css'
 import 'vue2-animate/dist/vue2-animate.min.css'
 
 Vue.config.productionTip = false
 
-Vue.use(ViewUI);
+Vue.use(iView);
 
 /* eslint-disable no-new */
 new Vue({

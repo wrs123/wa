@@ -11,7 +11,7 @@ $SubColor: #808695;
 $disabledColor: #c5c8ce;
 $borderColor: #dcdee2;
 $dividerColor: #e8eaec;
-$backgorundColor: #f8f8f9;
+$backgroundColor: #f5f7f9;
 $primaryColor: #2d8cf0;
 $lightPrimaryColor: #5cadff;
 $darkPrimaryColor: #2b85e4;
@@ -19,6 +19,7 @@ $info: #2db7f5;
 $success: #19be6b;
 $warning: #ff9900;
 $error: #ed4014;
+
 
 .layout-footer-center{
   text-align: center;
@@ -42,7 +43,7 @@ $error: #ed4014;
   height: calc(100vh - #{$h});
   position: fixed;
   top: $navbarHeight;
-  background: $backgorundColor;
+  background: $backgroundColor;
 }
 
 //滚动条样式
@@ -56,7 +57,7 @@ $error: #ed4014;
 }
 
 *::-webkit-scrollbar-track {/*滚动条里面轨道*/
-  background: $backgorundColor;
+  background: $backgroundColor;
 
 }
 
@@ -97,7 +98,6 @@ $error: #ed4014;
 }
 /*离开过渡的开始状态，元素被删除时触发，只应用一帧后立刻删除*/
 .customFade-leave-to {
-
   opacity: 1;
 }
 /*离开过渡的结束状态，元素被删除时生效，离开过渡完成后被删除*/
@@ -108,6 +108,10 @@ $error: #ed4014;
 
 .ivu-table-expanded-cell{
   padding: 15px 50px!important;
+}
+
+.scan-list .ivu-table::after{
+  content: none;
 }
 
 

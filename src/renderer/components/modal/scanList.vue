@@ -1,10 +1,13 @@
 <template>
- <Table
-    :columns="table.columns"
-    :data="table.data"
-    width="600"
-    size="small"
-    ></Table>
+ <div class="scan-list">
+   <Table
+     :columns="table.columns"
+     :data="table.data"
+     width="600"
+     size="small"
+     stripe="false"
+   ></Table>
+ </div>
 </template>
 
 <script>
@@ -54,7 +57,7 @@ export default {
                     align: 'center',
                     width: 85,
                     render: (h, params) => {
-                      return h('div', [
+                      return h('div', {style: {display: 'flex'}},[
                         h('Tooltip', {attrs:{
                             content:'资产',
                             placement: 'top'
@@ -68,7 +71,10 @@ export default {
                             on: {
                               click: ()=>{
                                 this.setShow(false)
-                                this.$router.push("/page/asset")
+                                console.log(params)
+                                if(this.$route.path != '/page/asset'){
+                                  this.$router.push("/page/asset")
+                                }
                               }
                             }
                           })
@@ -108,7 +114,7 @@ export default {
                 property: 5,
                 status: '运行中',
                 leak: 2,
-                id: 0
+                id: 1
               }
             ]
         }
@@ -133,6 +139,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  .ivu-table-wrapper{
+    border-left: 0;
+    border-right: 0;
+  }
 </style>
