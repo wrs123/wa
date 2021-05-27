@@ -5,7 +5,6 @@
      :data="table.data"
      width="600"
      size="small"
-     stripe="false"
    ></Table>
  </div>
 </template>
@@ -145,3 +144,5 @@ export default {
     border-right: 0;
   }
 </style>
+
+

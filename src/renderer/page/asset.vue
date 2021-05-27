@@ -6,10 +6,10 @@
       <div class="content">
         <div class="asset-content">
           <div class="asset-tree">
-            <Select v-model="activeTask" size="small">
+            <Select v-model="activeTask" >
               <Option v-for="item in taskList" :value="item.value" :key="item.value">{{ item.label }}</Option>
             </Select>
-            <div style="height: 10px;"></div>
+            <div style="height: 15px;"></div>
             <Tree :data="tree"></Tree>
           </div>
           <div class="asset-detail">
@@ -119,5 +119,34 @@ $treeWidth: 250px;
     background: white;
     border-radius: 4px;
     padding: 20px;
+  }
+</style>
+<style lang="scss">
+  .asset-tree .ivu-select-selection{
+    border: none;
+    box-shadow: none!important;
+    background: transparent;
+  }
+  .asset-tree .ivu-select-selection div{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .asset-tree .ivu-select-selection div span.ivu-select-selected-value{
+    padding-right: 5px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .asset-tree .ivu-select-selection div i.ivu-icon{
+    position: static;
+    line-height: 0px;
+  }
+
+  .asset-tree .ivu-select-dropdown{
+    min-width: 110px!important;
   }
 </style>
