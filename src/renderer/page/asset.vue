@@ -41,26 +41,26 @@ export default {
       activeMenuItem: "2",
       tree: [
         {
-          title: 'parent 1-1',
+          title: 'parent',
           expand: true,
           children: [
             {
-              title: 'leaf 1-1-1'
+              title: 'leaf'
             },
             {
-              title: 'leaf 1-1-2'
+              title: 'leaf'
             }
           ]
         },
         {
-          title: 'parent 1-2',
+          title: 'parent',
           expand: true,
           children: [
             {
-              title: 'leaf 1-2-1'
+              title: 'leaf'
             },
             {
-              title: 'leaf 1-2-1'
+              title: 'leaf'
             }
           ]
         }
@@ -148,5 +148,18 @@ $treeWidth: 250px;
 
   .asset-tree .ivu-select-dropdown{
     min-width: 110px!important;
+  }
+
+  .asset-tree .ivu-tree-title{
+    width: 100%;
+    padding: 3px 0 3px 5px;
+  }
+
+  .asset-tree .ivu-tree-arrow{
+    padding: 3px 0 3px 0;
+  }
+
+  .asset-tree .ivu-tree ul li{
+    margin: 5px 0;
   }
 </style>

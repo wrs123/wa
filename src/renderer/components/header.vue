@@ -87,6 +87,16 @@ export default {
   border-radius: 50%;
 }
 .ivu-menu, .ivu-layout-header{
-  background: #2d8cf0!important;
+  background: #fff!important;
+  box-shadow: 0 1px 4px rgba(0,21,41,.08)!important;
+  z-index: 5;
+}
+
+.ivu-menu, .ivu-layout-header *{
+  color: $contentColor!important;
+}
+
+.ivu-menu{
+  box-shadow: none!important;
 }
 </style>

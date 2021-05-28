@@ -3,15 +3,46 @@
     <Layout>
       <custom-sidebar :type="type"></custom-sidebar>
       <custom-header v-bind:activeName="activeMenuItem" @clickItem="clickItem"></custom-header>
-      <span>{{scanStatus}}</span>
-      <div v-if="scanStatus != 2" class="content"
-      :style="{display: 'flex', 'justify-content': 'center', 'align-items': 'center','flex-direction':'column'}">
-        <div class="title" v-if="scanStatus==0">
-          <span class="title-content">欢迎使用嗯扫</span>
-        </div>
-        <div class="add">
-          <div :class="['scan-button',{'unStart':scanStatus==0,'starting':scanStatus==1,'reStart':scanStatus==2}]" @click="addScan">{{scanStatus==0?'扫':scanStatus==1?'扫描中...':'重扫'}}</div>
-          <span class="text">{{scanStatus==0?'点击按钮开始扫描':scanStatus==1?'':''}}</span>
+<!--      <div v-if="scanStatus != 2" class="content"-->
+<!--      :style="{display: 'flex', 'justify-content': 'center', 'align-items': 'center','flex-direction':'column'}">-->
+<!--        <div class="title" v-if="scanStatus==0">-->
+<!--          <span class="title-content">欢迎使用嗯扫</span>-->
+<!--        </div>-->
+<!--        <div class="add">-->
+<!--          <div :class="['scan-button',{'unStart':scanStatus==0,'starting':scanStatus==1,'reStart':scanStatus==2}]" @click="addScan">{{scanStatus==0?'扫':scanStatus==1?'扫描中...':'重扫'}}</div>-->
+<!--          <span class="text">{{scanStatus==0?'点击按钮开始扫描':scanStatus==1?'':''}}</span>-->
+<!--        </div>-->
+<!--      </div>-->
+      <div class="content">
+        <div class="scan-header">
+          <div class="header-item">
+            <Icon type="ios-archive" />
+            <div class="con">
+              <span class="name">资产</span>
+              <span class="value">6</span>
+            </div>
+          </div>
+          <div class="header-item">
+            <Icon type="md-ionic" />
+            <div class="con">
+              <span class="name">存活</span>
+              <span class="value">6</span>
+            </div>
+          </div>
+          <div class="header-item">
+            <Icon type="md-git-network" />
+            <div class="con">
+              <span class="name">端口</span>
+              <span class="value">6</span>
+            </div>
+          </div>
+          <div class="header-item">
+            <Icon type="ios-bug" />
+            <div class="con">
+              <span class="name">漏洞</span>
+              <span class="value">6</span>
+            </div>
+          </div>
         </div>
       </div>
       <custom-footer></custom-footer>
@@ -248,5 +279,49 @@ export default {
     }
   }
 
+  .content .scan-header{
+    padding: 20px 10px;
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
+  }
+
+  .scan-header .header-item{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: white;
+    padding: 10px;
+    width: 100%;
+    margin: 0 10px;
+    box-shadow: 0 0 2px #f2f2f2;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .header-item i{
+    font-size: 40px;
+    color: #55648a;
+    margin-left: 5px;
+  }
+
+  .header-item .con{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 15px;
+  }
+
+  .header-item .con .name{
+    color: $titleColor;
+    font-size: 14px;
+  }
+
+  .header-item .con .value{
+    color: $contentColor;
+    font-size: 22px;
+    font-weight: lighter;
+  }
 
 </style>
