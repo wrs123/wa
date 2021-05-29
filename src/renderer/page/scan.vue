@@ -15,34 +15,57 @@
 <!--      </div>-->
       <div class="content">
         <div class="scan-header">
-          <div class="header-item">
-            <Icon type="ios-archive" />
-            <div class="con">
-              <span class="name">资产</span>
-              <span class="value">6</span>
-            </div>
-          </div>
-          <div class="header-item">
-            <Icon type="md-ionic" />
-            <div class="con">
-              <span class="name">存活</span>
-              <span class="value">6</span>
-            </div>
-          </div>
-          <div class="header-item">
-            <Icon type="md-git-network" />
-            <div class="con">
-              <span class="name">端口</span>
-              <span class="value">6</span>
-            </div>
-          </div>
-          <div class="header-item">
-            <Icon type="ios-bug" />
-            <div class="con">
-              <span class="name">漏洞</span>
-              <span class="value">6</span>
-            </div>
-          </div>
+          <Row :gutter="15" type="flex" justify="space-around" align="middle">
+            <Col :span="6" >
+              <div class="header-item main-box">
+                <Icon type="ios-archive" />
+                <div class="con">
+                  <span class="name">资产</span>
+                  <span class="value">6</span>
+                </div>
+              </div>
+            </Col>
+            <Col :span="6" >
+              <div class="header-item main-box">
+                <Icon type="md-ionic" />
+                <div class="con">
+                  <span class="name">存活</span>
+                  <span class="value">6</span>
+                </div>
+              </div>
+            </Col>
+            <Col :span="6" >
+              <div class="header-item main-box">
+                <Icon type="md-git-network" />
+                <div class="con">
+                  <span class="name">端口</span>
+                  <span class="value">6</span>
+                </div>
+              </div>
+            </Col>
+            <Col :span="6">
+              <div class="header-item main-box">
+                <Icon type="ios-bug" />
+                <div class="con">
+                  <span class="name">漏洞</span>
+                  <span class="value">6</span>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <Row :gutter="10">
+            <Col span="18">
+              <div class="detail-data main-box">
+                详细数据
+              </div>
+            </Col>
+            
+            <Col span="6">
+              <div class="real-message main-box">
+                实时内容
+              </div>
+            </Col>
+          </Row>
         </div>
       </div>
       <custom-footer></custom-footer>
@@ -280,24 +303,19 @@ export default {
   }
 
   .content .scan-header{
-    padding: 20px 10px;
-    display: flex;
-    align-content: center;
-    justify-content: space-around;
+    padding: 20px 15px;
+    //display: flex;
+    //align-content: center;
+    //justify-content: space-around;
   }
 
   .scan-header .header-item{
     position: relative;
-    display: flex;
     align-items: center;
     justify-content: flex-start;
-    background: white;
-    padding: 10px;
     width: 100%;
-    margin: 0 10px;
-    box-shadow: 0 0 2px #f2f2f2;
-    border-radius: 5px;
     overflow: hidden;
+    margin-bottom: 15px;
   }
 
   .header-item i{
@@ -322,6 +340,22 @@ export default {
     color: $contentColor;
     font-size: 22px;
     font-weight: lighter;
+  }
+
+  .detail-data{
+
+  }
+
+  .real-message{
+
+  }
+
+  .main-box{
+    display: flex;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 0 2px #f2f2f2;
+    border-radius: 5px;
   }
 
 </style>
