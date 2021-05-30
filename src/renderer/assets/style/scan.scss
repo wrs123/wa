@@ -255,3 +255,19 @@
   border-radius: 50%;
   font-size: 12px;
 }
+
+.line1, .line2{
+  display: flex;
+}
+
+.line1{
+  width: 100%;
+  height: calc(100% / 1.7);
+}
+
+.line1 #leakChart{
+  width: calc(100% / 1.4);
+  height: 100%;
+}
+
+

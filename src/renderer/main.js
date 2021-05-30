@@ -7,9 +7,10 @@ import router from './router'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import 'vue2-animate/dist/vue2-animate.min.css'
+import * as echarts from 'echarts';
 
 Vue.config.productionTip = false
-
+Vue.prototype.$echarts = echarts
 Vue.use(iView);
 
 /* eslint-disable no-new */

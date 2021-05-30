@@ -71,10 +71,14 @@
                   详细信息
                   <Button type="primary" shape="circle" icon="md-refresh" size="small"
                           :style="{position: 'absolute', right: '14px',top: '8px',
-                          display: 'flex','justify-content': 'center', 'align-items': 'center'}"></Button>
+                          display: 'flex','justify-content': 'center', 'align-items': 'center'}" @click="initChar()"></Button>
                 </div>
                 <div class="box-content" style="height: calc(100vh - 279px);">
-                  11
+                  <div class="line1">
+                    <div id="leakChart" ref="leakChart"></div>
+                    <div id="circleChart1"></div>
+                  </div>
+                  <div class="line2"></div>
                 </div>
               </div>
             </Col>
@@ -127,6 +131,12 @@ export default {
       type: '',
     }
   },
+  mounted(){
+    //初始化图表
+    this.$nextTick(() => {
+      this.initChar()
+    });
+  },
   computed: {
     ...mapGetters('scan',{
       scanStatus: 'getStatus'
@@ -153,6 +163,64 @@ export default {
       }else if(this.scanStatus= 1){
         this.setScanStatus(0)
       }
+    },
+    //初始化图表
+    initChar(){
+      // 基于准备好的dom，初始化echarts实例
+      console.log(this.$echarts)
+      let myChart = this.$echarts.init(document.getElementById('leakChart'))
+      let options = {
+        title: {
+          text:'时间漏洞',
+          textStyle: {
+            color: '#515a6e'
+          },
+          left: 10
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985'
+            }
+          }
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            data: [20, 65, 50, 80, 32, 47, 70],
+            type: 'line',
+            smooth: 'true',
+            lineStyle:{
+              color: '#55648a'
+            },
+            areaStyle: {
+              color: 'rgba(85, 100, 138, .9)'
+            },
+            emphasis: {
+              focus: 'series'
+            }
+          }]
+      }
+      // 绘制图表
+      myChart.setOption(options);
+    },
+    reloadCharts(){
+      console.log(22)
     }
   }
 }
