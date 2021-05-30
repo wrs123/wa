@@ -100,7 +100,7 @@ $treeWidth: 250px;
  .asset-content{
    width: 100%;
    height: 100%;
-   padding: 20px;
+   padding: 20px 10px;
    display: flex;
    justify-content: space-around;
  }
@@ -115,7 +115,7 @@ $treeWidth: 250px;
 
   .asset-content .asset-detail{
     height: 100%;
-    width: calc(100% - #{$treeWidth+60px});
+    width: calc(100% - #{$treeWidth+40px});
     background: white;
     border-radius: 4px;
     padding: 20px;

@@ -4,6 +4,9 @@
     <list default="true" id="453d145d-f765-40db-9fff-8324ded6b66e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/assets/style/custom.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/assets/style/custom.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/components/header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/components/header.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/page/asset.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/asset.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/page/scan.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/scan.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,17 +56,6 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="npm.dev">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -112,6 +104,7 @@
       <workItem from="1622095085964" duration="2558000" />
       <workItem from="1622257776470" duration="2837000" />
       <workItem from="1622276469543" duration="2943000" />
+      <workItem from="1622350606020" duration="4222000" />
     </task>
     <servers />
   </component>

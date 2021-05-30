@@ -8,7 +8,7 @@
           扫描
         </MenuItem>
         <MenuItem name="2">
-          <Icon type="ios-keypad"></Icon>
+          <Icon type="ios-archive"></Icon>
           资产
         </MenuItem>
         <MenuItem name="3">
@@ -90,10 +90,6 @@ export default {
   background: #fff!important;
   box-shadow: 0 1px 4px rgba(0,21,41,.08)!important;
   z-index: 5;
-}
-
-.ivu-menu, .ivu-layout-header *{
-  color: $contentColor!important;
 }
 
 .ivu-menu{

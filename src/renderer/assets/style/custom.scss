@@ -114,4 +114,19 @@ $error: #ed4014;
   content: none;
 }
 
+.ivu-menu, .ivu-layout-header .ivu-menu-item{
+  color: $SubColor!important;
+  transition: all .3s ease-in-out!important;
+  font-weight: bold;
+}
+
+.ivu-menu.ivu-menu-horizontal .ivu-menu-item-active{
+  color: $titleColor!important;
+  font-weight: bold;
+}
+
+.ivu-menu.ivu-menu-horizontal .ivu-menu-item-active i{
+  color: $titleColor!important;
+}
+
 

@@ -69,22 +69,33 @@
                     <Icon type="ios-stats"/>
                   </span>
                   详细信息
+                  <Button type="primary" shape="circle" icon="ios-refresh" size="small"
+                          :style="{position: 'absolute', right: '14px',top: '8px'}"></Button>
                 </div>
-                <div class="box-content">
+                <div class="box-content" style="height: calc(100vh - 279px);">
                   11
                 </div>
               </div>
             </Col>
             <Col span="6">
-              <div class="real-message main-box">
-                <div class="box-title">
-                  <span class="title-icon"><Icon type="ios-flash" style="font-size: 15px;"/></span>
-                  实时数据
+              <Row>
+                <div class="real-message main-box">
+                  <div class="box-title">
+                    <span class="title-icon"><Icon type="ios-flash" style="font-size: 15px;"/></span>
+                    实时数据
+                  </div>
+                  <div class="box-content" style="height: calc(100vh - 414px);">
+                    暂无数据
+                  </div>
                 </div>
-                <div class="box-content">
-                  11
+              </Row>
+              <Row>
+                <div class="real-message main-box">
+                  <div class="box-content" style="height: 120px;">
+                    暂无数据
+                  </div>
                 </div>
-              </div>
+              </Row>
             </Col>
           </Row>
         </div>
