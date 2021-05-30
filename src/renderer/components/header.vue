@@ -80,10 +80,10 @@ export default {
   right: 20px;
   display: flex;
   top: calc(50% - 10.5px);;
-  color: #fff;
+  color: $contentColor;
   font-size: 18px;
   padding: 3px;
-  border: 1px solid #fff;
+  border: 1px solid $contentColor;
   border-radius: 50%;
 }
 .ivu-menu, .ivu-layout-header{

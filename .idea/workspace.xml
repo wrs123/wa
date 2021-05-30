@@ -3,10 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="453d145d-f765-40db-9fff-8324ded6b66e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/assets/style/custom.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/assets/style/custom.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/assets/style/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/assets/style/index.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/components/header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/components/header.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/page/asset.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/asset.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/page/config.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/config.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/page/leak.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/leak.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/page/report.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/report.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/page/scan.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/scan.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

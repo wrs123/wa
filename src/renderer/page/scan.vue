@@ -69,8 +69,9 @@
                     <Icon type="ios-stats"/>
                   </span>
                   详细信息
-                  <Button type="primary" shape="circle" icon="ios-refresh" size="small"
-                          :style="{position: 'absolute', right: '14px',top: '8px'}"></Button>
+                  <Button type="primary" shape="circle" icon="md-refresh" size="small"
+                          :style="{position: 'absolute', right: '14px',top: '8px',
+                          display: 'flex','justify-content': 'center', 'align-items': 'center'}"></Button>
                 </div>
                 <div class="box-content" style="height: calc(100vh - 279px);">
                   11
