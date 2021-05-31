@@ -262,12 +262,25 @@
 
 .line1{
   width: 100%;
-  height: calc(100% / 1.7);
+  height: 70%;
+}
+
+.line2{
+  width: 100%;
+  height: 30%;
 }
 
 .line1 #leakChart{
-  width: calc(100% / 1.4);
+  width: 100%;
   height: 100%;
+  padding: 10px;
 }
+
+.line2 .chartItem{
+  width: 33.333333333%;
+  height: 100%;
+  //padding: 10px;
+}
+
 
 

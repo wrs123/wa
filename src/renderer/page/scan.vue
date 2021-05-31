@@ -73,12 +73,8 @@
                           :style="{position: 'absolute', right: '14px',top: '8px',
                           display: 'flex','justify-content': 'center', 'align-items': 'center'}" @click="initChar()"></Button>
                 </div>
-                <div class="box-content" style="height: calc(100vh - 279px);">
-                  <div class="line1">
-                    <div id="leakChart" ref="leakChart"></div>
-                    <div id="circleChart1"></div>
-                  </div>
-                  <div class="line2"></div>
+                <div class="box-content" id="chartsContainer" style="height: calc(100vh - 279px);display: flex;flex-direction: column;">
+
                 </div>
               </div>
             </Col>
@@ -168,15 +164,8 @@ export default {
     initChar(){
       // 基于准备好的dom，初始化echarts实例
       console.log(this.$echarts)
-      let myChart = this.$echarts.init(document.getElementById('leakChart'))
-      let options = {
-        title: {
-          text:'时间漏洞',
-          textStyle: {
-            color: '#515a6e'
-          },
-          left: 10
-        },
+      let myChart = this.$echarts.init(document.getElementById('chartsContainer'))
+      let myChartOptions = {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -187,10 +176,10 @@ export default {
           }
         },
         grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
+          top: '45%',
+          bottom: 30,
+          left: 40,
+          right: 30
         },
         xAxis: {
           type: 'category',
@@ -200,13 +189,111 @@ export default {
         yAxis: {
           type: 'value'
         },
+        legend: {
+          data: ['漏洞数'],
+          right: 10
+        },
         series: [
           {
+            name: '访问来源',
+            type: 'pie',
+            top: '0',
+            radius: '25%',
+            center: ['15%', '20%'],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 7,
+              borderColor: '#fff',
+              borderWidth: 2
+            },
+            label: {
+              normal: {
+                position: 'inside'
+              }
+            },
+            data: [
+              {value: 1048, name: '搜索引擎'},
+              {value: 735, name: '直接访问'}
+            ]
+          },
+          {
+            name: '访问来源',
+            type: 'pie',
+            top: '0',
+            radius: '25%',
+            center: ['38%', '20%'],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 7,
+              borderColor: '#fff',
+              borderWidth: 2
+            },
+            label: {
+              normal: {
+                position: 'inside'
+              }
+            },
+            data: [
+              {value: 1048, name: '搜索引擎'},
+              {value: 735, name: '直接访问'}
+            ]
+          },
+          {
+            name: '访问来源',
+            type: 'pie',
+            top: '0',
+            radius: '25%',
+            center: ['62%', '20%'],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 7,
+              borderColor: '#fff',
+              borderWidth: 2
+            },
+            label: {
+              normal: {
+                position: 'inside'
+              }
+            },
+            data: [
+              {value: 1048, name: '搜索引擎'},
+              {value: 735, name: '直接访问'}
+            ]
+          },
+          {
+            name: '访问来源',
+            type: 'pie',
+            top: '0',
+            radius: '25%',
+            center: ['86%', '20%'],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 7,
+              borderColor: '#fff',
+              borderWidth: 2
+            },
+            label: {
+              normal: {
+                position: 'inside'
+              }
+            },
+            data: [
+              {value: 1048, name: '搜索引擎'},
+              {value: 735, name: '直接访问'}
+            ]
+          },
+          {
+            name: '漏洞数',
             data: [20, 65, 50, 80, 32, 47, 70],
             type: 'line',
             smooth: 'true',
-            lineStyle:{
-              color: '#55648a'
+            itemStyle: {
+              normal : {
+                color:'#55648a',
+                lineStyle:{
+                  color:'#55648a'
+                }
+              }
             },
             areaStyle: {
               color: 'rgba(85, 100, 138, .9)'
@@ -217,7 +304,7 @@ export default {
           }]
       }
       // 绘制图表
-      myChart.setOption(options);
+      myChart.setOption(myChartOptions);
     },
     reloadCharts(){
       console.log(22)

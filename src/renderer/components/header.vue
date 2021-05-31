@@ -5,7 +5,7 @@
       <div class="layout-nav">
         <MenuItem name="1">
           <Icon type="ios-navigate"></Icon>
-          扫描
+          控制台
         </MenuItem>
         <MenuItem name="2">
           <Icon type="ios-archive"></Icon>

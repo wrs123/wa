@@ -13,7 +13,7 @@
             <Tree :data="tree"></Tree>
           </div>
           <div class="asset-detail">
-            内容
+            暂无数据
           </div>
         </div>
       </div>
@@ -83,7 +83,6 @@ export default {
   },
   methods: {
     clickItem(res){
-
       if(res.name != this.$data.activeMenuItem){
         console.log(res)
         this.$data.activeMenuItem = res.name
