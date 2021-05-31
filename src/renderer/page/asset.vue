@@ -83,6 +83,7 @@ export default {
   },
   methods: {
     clickItem(res){
+
       if(res.name != this.$data.activeMenuItem){
         console.log(res)
         this.$data.activeMenuItem = res.name

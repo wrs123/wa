@@ -10,7 +10,14 @@
               <Option v-for="item in taskList" :value="item.value" :key="item.value">{{ item.label }}</Option>
             </Select>
             <div style="height: 15px;"></div>
-            <Tree :data="tree"></Tree>
+            <div class="leak-select">
+              <div :class="['leak-select-item',{'active': item.id==activeLeak}]"
+                   v-for="item in leakTypeList" :key="item.id"
+                  @click="chooseLeakType(item)"
+              >
+                {{item.name}}
+              </div>
+            </div>
           </div>
           <div class="leak-detail">
             暂无数据
@@ -61,7 +68,7 @@ export default {
       taskList: [
         {
           value: 0,
-          label: '全部漏洞'
+          label: '全部'
         },
         {
           value: 1,
@@ -70,7 +77,20 @@ export default {
           value: 2,
           label: '任务2'
         }
-      ]
+      ],
+      leakTypeList: [
+        {
+          id: 0,
+          name: 'xss注入'
+        },{
+          id: 1,
+          name: '弱口令'
+        },{
+          id: 2,
+          name: 'MS107-010'
+        }
+      ],
+      activeLeak: 0,
     }
   },
   methods: {
@@ -80,78 +100,17 @@ export default {
         this.$data.activeMenuItem = res.name
         this.$router.push({path: '/page'+res.path})
       }
+    },
+    chooseLeakType(item){
+      console.log(item)
+      if(this.activeLeak != item.id){
+        this.activeLeak = item.id
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-$treeWidth: 250px;
-
-.leak-content{
-  width: 100%;
-  height: 100%;
-  padding: 20px 10px;
-  display: flex;
-  justify-content: space-around;
-}
-
-.leak-content .leak-tree {
-  height: 100%;
-  width: $treeWidth;
-  background: white;
-  border-radius: 4px;
-  padding: 20px;
-}
-
-.leak-content .leak-detail{
-  height: 100%;
-  width: calc(100% - #{$treeWidth+40px});
-  background: white;
-  border-radius: 4px;
-  padding: 20px;
-}
-</style>
-
-<style lang="scss">
-.leak-tree .ivu-select-selection{
-  border: none;
-  box-shadow: none!important;
-  background: transparent;
-}
-.leak-tree .ivu-select-selection div{
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.leak-tree .ivu-select-selection div span.ivu-select-selected-value{
-  padding-right: 5px;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.leak-tree .ivu-select-selection div i.ivu-icon{
-  position: static;
-  line-height: 0px;
-}
-
-.leak-tree .ivu-select-dropdown{
-  min-width: 110px!important;
-}
-
-.leak-tree .ivu-tree-title{
-  width: 100%;
-  padding: 3px 0 3px 5px;
-}
-
-.leak-tree .ivu-tree-arrow{
-  padding: 3px 0 3px 0;
-}
-
-.leak-tree .ivu-tree ul li{
-  margin: 5px 0;
-}
+  @import "../assets/style/leak.scss";
 </style>

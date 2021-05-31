@@ -1,0 +1,44 @@
+$treeWidth: 250px;
+
+.leak-content{
+  width: 100%;
+  height: 100%;
+  padding: 20px 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.leak-content .leak-tree {
+  height: 100%;
+  width: $treeWidth;
+  background: white;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.leak-content .leak-detail{
+  height: 100%;
+  width: calc(100% - #{$treeWidth+40px});
+  background: white;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.leak-content .leak-select{
+
+}
+
+.leak-select .leak-select-item{
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  transition: all .3s;
+}
+
+.leak-select .leak-select-item.active{
+  background: $primaryColor;
+  color: #fff;
+}

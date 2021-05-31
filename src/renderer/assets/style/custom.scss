@@ -146,4 +146,52 @@ $error: #ed4014;
   color: $titleColor!important;
 }
 
+.leak-tree .ivu-select-selection{
+  border: none;
+  box-shadow: none!important;
+  background: transparent;
+}
+.leak-tree .ivu-select-selection div{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.leak-tree .ivu-select-selection div span.ivu-select-selected-value{
+  padding-right: 5px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.leak-tree .ivu-select-selection div i.ivu-icon{
+  position: static;
+  line-height: 0px;
+}
+
+.leak-tree .ivu-select-dropdown{
+  min-width: 110px!important;
+}
+
+.leak-tree .ivu-tree-title{
+  width: 100%;
+  padding: 3px 0 3px 5px;
+}
+
+.leak-tree .ivu-tree-arrow{
+  padding: 3px 0 3px 0;
+}
+
+.leak-tree .ivu-tree ul li{
+  margin: 5px 0;
+}
+
+.main-box{
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 0 2px #f2f2f2;
+}
+
+
 
