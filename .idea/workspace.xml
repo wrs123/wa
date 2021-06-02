@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="453d145d-f765-40db-9fff-8324ded6b66e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/page/asset.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/asset.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/page/report.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/report.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/page/scan.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/scan.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,17 +58,6 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="npm.dev">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -123,6 +111,7 @@
       <workItem from="1622369058665" duration="5278000" />
       <workItem from="1622529663669" duration="8196000" />
       <workItem from="1622599859018" duration="4792000" />
+      <workItem from="1622619799135" duration="4161000" />
     </task>
     <servers />
   </component>

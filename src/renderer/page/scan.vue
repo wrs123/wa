@@ -92,8 +92,19 @@
               </Row>
               <Row>
                 <div class="real-message main-box">
-                  <div class="box-content" style="height: 120px;">
-                    暂无数据
+                  <div class="box-content" style="height: 120px;display: flex; justify-content: space-around">
+                    <div style="display: flex; flex-direction: column;align-items: center">
+                      <i-circle v-bind:percent="system.cpuUsed" :size="80" dashboard>
+                        <span class="demo-circle-inner" style="font-size:24px">{{system.cpuUsed}}%</span>
+                      </i-circle>
+                      <span>CPU占用</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column;align-items: center">
+                      <i-circle v-bind:percent="system.memoryUsed" :size="80" dashboard>
+                        <span class="demo-circle-inner" style="font-size:24px">{{system.memoryUsed}}%</span>
+                      </i-circle>
+                      <span>内存占用</span>
+                    </div>
                   </div>
                 </div>
               </Row>
@@ -125,6 +136,10 @@ export default {
     return {
       activeMenuItem: "1",
       type: '',
+      system: {
+        cpuUsed: 0,
+        memoryUsed: 0
+      }
     }
   },
   mounted(){
@@ -138,7 +153,21 @@ export default {
       scanStatus: 'getStatus'
     })
   },
+  created() {
+    let that = this;
+
+    setInterval(()=> {
+      that.getSystemInfo()
+    },300)
+  },
   methods: {
+    getSystemInfo(){
+      let cpu = process.getCPUUsage(),
+          memory = process.getSystemMemoryInfo(),
+          memoryUsed = (1- (memory.free / memory.total))*100
+      this.system.cpuUsed = parseInt(cpu.percentCPUUsage)
+      this.system.memoryUsed = parseInt(memoryUsed)
+    },
     clickItem(res){
       if(res.name != this.$data.activeMenuItem){
         console.log(res)

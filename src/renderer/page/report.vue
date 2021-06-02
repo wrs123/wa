@@ -47,7 +47,6 @@ export default {
       // this.$getPdf('测试报告', '#reportContainer')
     },
     clickItem(res){
-
       if(res.name != this.$data.activeMenuItem){
         console.log(res)
         this.$data.activeMenuItem = res.name
