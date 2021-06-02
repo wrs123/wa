@@ -79,7 +79,7 @@ export default {
         },
         {
           title: '端口',
-          key: 'age'
+          key: 'port'
         },
         {
           title: '协议',
@@ -88,6 +88,10 @@ export default {
         {
           title: '服务',
           key: 'address'
+        },
+        {
+          title: '主机系统',
+          key: 'system'
         }
       ],
       assetTableData:[ {

@@ -25,7 +25,7 @@ function createWindow () {
     width: 1300,  //950
     minWidth: 1300,
     webPreferences: {
-      nodeIntegration:true
+      nodeIntegration: true
     }
   })
 

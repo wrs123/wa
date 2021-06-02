@@ -166,7 +166,7 @@ export default {
           memory = process.getSystemMemoryInfo(),
           memoryUsed = (1- (memory.free / memory.total))*100
       this.system.cpuUsed = parseInt(cpu.percentCPUUsage)
-      this.system.memoryUsed = parseInt(memoryUsed)
+      this.system.memoryUsed = parseInt(memoryUsed);
     },
     clickItem(res){
       if(res.name != this.$data.activeMenuItem){
