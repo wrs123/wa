@@ -13,7 +13,13 @@
             <Tree :data="tree"></Tree>
           </div>
           <div class="asset-detail">
-            暂无数据
+            <div class="total-content">资产: <span class="text">8</span>, 端口: <span class="text">9</span>, ip: <span class="text">9</span>, 漏洞: <span class="text">9</span></div>
+            <div class="asset-table">
+              <Table :columns="assetTable" :data="assetTableData" :height="tableContentHeight"></Table>
+            </div>
+            <div class="page-group">
+              <Page :total="100" show-total/>
+            </div>
           </div>
         </div>
       </div>
@@ -38,6 +44,7 @@ export default {
   },
   data () {
     return {
+      tableContentHeight: document.documentElement.clientHeight - 270,
       activeMenuItem: "2",
       tree: [
         {
@@ -65,6 +72,96 @@ export default {
           ]
         }
       ],
+      assetTable: [
+        {
+          title: 'IP',
+          key: 'name'
+        },
+        {
+          title: '端口',
+          key: 'age'
+        },
+        {
+          title: '协议',
+          key: 'address'
+        },
+        {
+          title: '服务',
+          key: 'address'
+        }
+      ],
+      assetTableData:[ {
+        name: 'John Brown',
+        age: 18,
+        address: 'New York No. 1 Lake Park',
+        date: '2016-10-03'
+      },
+        {
+          name: 'Jim Green',
+          age: 24,
+          address: 'London No. 1 Lake Park',
+          date: '2016-10-01'
+        },
+        {
+          name: 'Joe Black',
+          age: 30,
+          address: 'Sydney No. 1 Lake Park',
+          date: '2016-10-02'
+        },
+        {
+          name: 'Jon Snow',
+          age: 26,
+          address: 'Ottawa No. 2 Lake Park',
+          date: '2016-10-04'
+        },
+        {
+          name: 'John Brown',
+          age: 18,
+          address: 'New York No. 1 Lake Park',
+          date: '2016-10-03'
+        },
+        {
+          name: 'Jim Green',
+          age: 24,
+          address: 'London No. 1 Lake Park',
+          date: '2016-10-01'
+        },
+        {
+          name: 'Joe Black',
+          age: 30,
+          address: 'Sydney No. 1 Lake Park',
+          date: '2016-10-02'
+        },
+        {
+          name: 'Jon Snow',
+          age: 26,
+          address: 'Ottawa No. 2 Lake Park',
+          date: '2016-10-04'
+        },
+        {
+          name: 'John Brown',
+          age: 18,
+          address: 'New York No. 1 Lake Park',
+          date: '2016-10-03'
+        },
+        {
+          name: 'Jim Green',
+          age: 24,
+          address: 'London No. 1 Lake Park',
+          date: '2016-10-01'
+        },
+        {
+          name: 'Joe Black',
+          age: 30,
+          address: 'Sydney No. 1 Lake Park',
+          date: '2016-10-02'
+        },
+        {
+          name: 'Jon Snow',
+          age: 26,
+          address: 'Ottawa No. 2 Lake Park',
+          date: '2016-10-04'
+        }],
       activeTask: 0,
       taskList: [
         {
@@ -79,6 +176,11 @@ export default {
           label: '任务2'
         }
       ]
+    }
+  },
+  watch: {
+    tableContentHeight(val){
+      this.tableContentHeight = val
     }
   },
   methods: {
@@ -96,6 +198,11 @@ export default {
 
 <style lang="scss" scoped>
 $treeWidth: 250px;
+
+.ivu-table-wrapper{
+  border-left: 0;
+  border-right: 0;
+}
 
  .asset-content{
    width: 100%;
@@ -119,6 +226,7 @@ $treeWidth: 250px;
     background: white;
     border-radius: 4px;
     padding: 20px;
+    position: relative;
   }
 </style>
 <style lang="scss">
@@ -161,5 +269,22 @@ $treeWidth: 250px;
 
   .asset-tree .ivu-tree ul li{
     margin: 5px 0;
+  }
+
+  .asset-detail .page-group{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .asset-detail .total-content{
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .asset-detail .total-content .text{
+    font-weight: normal!important;
+    color: $primaryColor;
   }
 </style>
