@@ -3,8 +3,19 @@
     <Layout>
       <custom-sidebar></custom-sidebar>
       <custom-header v-bind:activeName="activeMenuItem" @clickItem="clickItem"></custom-header>
-      <custom-content class="content" v-bind:activeName="activeMenuItem">
-      </custom-content>
+      <div class="content" id="reportContainer">
+        <div class="report-content main-box">
+          <div class="box-title">
+            <span>测试报告</span>
+            <div class="action-buttong">
+              <Button icon="md-cloud-download" type="primary" @click="downloadReport()">下载</Button>
+            </div>
+          </div>
+          <div class="box-content">
+
+          </div>
+        </div>
+      </div>
       <custom-footer></custom-footer>
     </Layout>
   </div>
@@ -30,6 +41,11 @@ export default {
     }
   },
   methods: {
+    downloadReport(){
+      console.log(this)
+      window.print();
+      // this.$getPdf('测试报告', '#reportContainer')
+    },
     clickItem(res){
 
       if(res.name != this.$data.activeMenuItem){
@@ -43,4 +59,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @import "../assets/style/report.scss";
 </style>

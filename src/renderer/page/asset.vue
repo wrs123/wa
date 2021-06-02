@@ -48,26 +48,26 @@ export default {
       activeMenuItem: "2",
       tree: [
         {
-          title: 'parent',
+          title: 'IP资产',
           expand: true,
           children: [
             {
-              title: 'leaf'
+              title: '10.16.5.0'
             },
             {
-              title: 'leaf'
+              title: '192.168.33.0'
             }
           ]
         },
         {
-          title: 'parent',
+          title: '端口资产',
           expand: true,
           children: [
             {
-              title: 'leaf'
+              title: '22'
             },
             {
-              title: 'leaf'
+              title: '81'
             }
           ]
         }
@@ -166,7 +166,7 @@ export default {
       taskList: [
         {
           value: 0,
-          label: '全部资产'
+          label: '全部'
         },
         {
           value: 1,
@@ -261,6 +261,8 @@ $treeWidth: 250px;
   .asset-tree .ivu-tree-title{
     width: 100%;
     padding: 3px 0 3px 5px;
+    font-size:13px;
+    font-weight: bold;
   }
 
   .asset-tree .ivu-tree-arrow{
@@ -278,13 +280,16 @@ $treeWidth: 250px;
   }
 
   .asset-detail .total-content{
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 14px;
+    //font-weight: bold;
     margin-bottom: 10px;
+    color: $SubColor;
   }
 
   .asset-detail .total-content .text{
     font-weight: normal!important;
-    color: $primaryColor;
+    color: $titleColor;
+    font-size: 16px;
+    font-weight: lighter;
   }
 </style>

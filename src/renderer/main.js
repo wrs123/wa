@@ -8,10 +8,12 @@ import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import 'vue2-animate/dist/vue2-animate.min.css'
 import * as echarts from 'echarts';
+import htmlToPdf from './utils/htmlToPdf';
 
 Vue.config.productionTip = false
 Vue.prototype.$echarts = echarts
 Vue.use(iView);
+Vue.use(htmlToPdf);
 
 /* eslint-disable no-new */
 new Vue({
