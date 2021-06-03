@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="leak-detail">
-            暂无数据
+            <Table :columns="leakTable" :data="leakTableData" :height="tableContentHeight"></Table>
           </div>
         </div>
       </div>
@@ -91,6 +91,28 @@ export default {
         }
       ],
       activeLeak: 0,
+      leakTable: [
+      {
+        title: '漏洞名称',
+        key: 'name'
+      },
+      {
+        title: 'IP',
+        key: 'port'
+      },
+      {
+        title: '端口',
+        key: 'address'
+      }
+    ],
+      leakTableData: [
+        {
+          name: 'Jim Green',
+          age: 24,
+          address: 'London No. 1 Lake Park',
+          date: '2016-10-01'
+        },
+      ]
     }
   },
   methods: {

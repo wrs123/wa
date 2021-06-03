@@ -83,7 +83,7 @@
                 <div class="real-message main-box">
                   <div class="box-title">
                     <span class="title-icon"><Icon type="ios-flash" style="font-size: 15px;"/></span>
-                    实时数据
+                    最新漏洞
                   </div>
                   <div class="box-content" style="height: calc(100vh - 414px);">
                     暂无数据

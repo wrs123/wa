@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="453d145d-f765-40db-9fff-8324ded6b66e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/page/asset.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/asset.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/page/leak.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/leak.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/page/scan.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/scan.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
