@@ -1,21 +1,28 @@
 const state={
   scanStatus: 0, //0未开始1进行中2已完成
-  activeMission: ''
+  activeTask: {},
+  taskList:[]
 };
 const getters={
   getStatus(state){ //承载变化的collects
     return state.scanStatus;
   },
-  getActiveMission(state){ //承载变化的collects
-    return state.activeMission;
-  }
+  getActiveTask(state){ //承载变化的collects
+    return state.activeTask;
+  },
+  getTaskList(state){ //承载变化的collects
+    return state.taskList;
+  },
 };
 const mutations={
   setScanStatus(state,items){ //如何变化collects,插入items
     state.scanStatus = items
   },
-  setActiveMission(state,items){ //如何变化collects,插入items
-    state.activeMission = items
+  setActiveTask(state,items){ //如何变化collects,插入items
+    state.activeTask = items
+  },
+  setTaskList(state,items){ //如何变化collects,插入items
+    state.taskList = items
   }
 };
 
@@ -23,8 +30,11 @@ const actions={
   setScanStatus(context,item){ //触发mutations里面的pushCollects ,传入数据形参item 对应到items
     context.commit('setScanStatus',item);
   },
-  setActiveMission(context,item){ //触发mutations里面的pushCollects ,传入数据形参item 对应到items
-    context.commit('setActiveMission',item);
+  setActiveTask(context,item){ //触发mutations里面的pushCollects ,传入数据形参item 对应到items
+    context.commit('setActiveTask',item);
+  },
+  setTaskList(context,item){ //触发mutations里面的pushCollects ,传入数据形参item 对应到items
+    context.commit('setTaskList',item);
   }
 };
 export default {

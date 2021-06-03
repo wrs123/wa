@@ -7,7 +7,14 @@ const api = {
    * @returns {*}
    */
   createTask(params) {
-    return request.get('/task/createTask', { params: params })
+    return new Promise((resolve, reject) => {
+      request.post('/task/createTask', params).then(res =>{
+        resolve(res)
+        console.log(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
   },
 
   /**
@@ -16,7 +23,14 @@ const api = {
    * @returns {boolean|Promise<AxiosResponse<any>>|*}
    */
   getTaskList(params) {
-    return request.post('/task/getTaskList', params)
+    return new Promise((resolve, reject) => {
+      request.get('/task/getAllTask', {params: params}).then(res =>{
+        resolve(res)
+        console.log(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
   },
 
   /**
@@ -25,8 +39,121 @@ const api = {
    * @returns {boolean|Promise<AxiosResponse<any>>|*}
    */
   deleteTask(params) {
-    return request.post('/task/DeleteTask', params)
-  }
+    return new Promise((resolve, reject) => {
+      request.post('/task/deleteTask', params).then(res =>{
+        resolve(res)
+        console.log(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
+  },
+
+  /**
+   * 获取资产类型
+   * @param params
+   * @returns {*}
+   */
+  getAssetTypeList(params){
+    return new Promise((resolve, reject) => {
+      request.get('/assets/getAssetsType', {params: params}).then(res =>{
+        resolve(res)
+        console.log(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
+  },
+
+  /**
+   * 获取资产列表
+   * @param params
+   * @returns {*}
+   */
+  getAssetList(params){
+    return new Promise((resolve, reject) => {
+      request.get('/assets/getAssetsList', {params: params}).then(res =>{
+        resolve(res)
+        console.log(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
+  },
+
+  /**
+   * getPortTypeList
+   * @param params
+   * @returns {Promise<unknown>}
+   */
+  getPortTypeList(params){
+    return new Promise((resolve, reject) => {
+      request.get('/port/getPort', {params: params}).then(res =>{
+        resolve(res)
+        console.log(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
+  },
+  /**
+   * 创建任务
+   * @param param
+   */
+  postTask(params){
+    return new Promise((resolve, reject) => {
+      request.post('/task/createTask', params).then(res =>{
+        resolve(res)
+        console.log(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
+  },
+  /**
+   * 控制台详情数据
+   * @param params
+   * @returns {Promise<unknown>}
+   */
+  getBoardDetails(params){
+    return new Promise((resolve, reject) => {
+      request.get('/board/getDetail', {params: params}).then(res =>{
+        resolve(res)
+        console.log(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
+  },
+  /**
+   * 获取 board主图表
+   * @param params
+   * @returns {Promise<unknown>}
+   */
+  getBoardChart(params){
+    return new Promise((resolve, reject) => {
+      request.get('/board/getPieData', {params: params}).then(res =>{
+        resolve(res)
+        console.log(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
+  },
+  /**
+   * 获取最新漏洞列表
+   * @param params
+   * @returns {Promise<unknown>}
+   */
+  getLatestLeakList(params){
+    return new Promise((resolve, reject) => {
+      request.get('/xray/getLatestVul', {params: params}).then(res =>{
+        resolve(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
+  },
 }
 
 export default api

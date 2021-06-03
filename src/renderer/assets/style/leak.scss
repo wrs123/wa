@@ -22,6 +22,15 @@ $treeWidth: 250px;
   background: white;
   border-radius: 4px;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.leak-detail .page-group{
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }
 
 .leak-content .leak-select{

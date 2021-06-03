@@ -39,7 +39,7 @@
           </div>
             <span class="title2 line u1">1.2 任务详情</span>
             <div class="line taskDetailsTable">
-              <Table :columns="taskDetailsColumn" :data="taskDetailsData" border="true"></Table>
+              <Table :columns="taskDetailsColumn" :data="taskDetailsData" :border="true"></Table>
             </div>
             <span class="title2 line u1">1.3 风险分布</span>
             <span class="title2 line u1">1.4 资产分布</span>

@@ -8,20 +8,16 @@
       <Input v-model="formItem.task_name" placeholder="请输入任务名称"></Input>
     </FormItem>
     <FormItem label="ip地址：">
-      <Input v-model="formItem.ip_address" type="textarea" placeholder="请输入ip地址" :autosize="true"></Input>
-    </FormItem>
-    <FormItem label="扫描类型：">
-      <Select v-model="formItem.scan_model">
-        <Option :value="item.value" v-for="(item, index) in scanTypeItems" :key="index" :label="item.name">{{item.name}}</Option>
-      </Select>
+      <Input v-model="formItem.scan_ip" type="textarea" placeholder="请输入ip地址" :autosize="true"></Input>
     </FormItem>
     <FormItem label="端口类型：">
-      <Select v-model="formItem.scan_port_type">
-        <Option :value="item.value" v-for="(item, index) in portTypeItems" :key="index" :label="item.name">{{item.name}}</Option>
+      <Select v-model="formItem.scan_port_id"
+              @on-open-change="getPortTypeList">
+        <Option :value="item.id" v-for="(item, index) in portTypeItems" :key="index" :label="item.name">{{item.name}}</Option>
       </Select>
     </FormItem>
-    <FormItem v-if="formItem.scan_port_type=='custom'">
-      <Input v-model="formItem.custom_port" type="textarea" placeholder="请输入自定义端口" :rows="3"></Input>
+    <FormItem label="任务描述：">
+      <Input v-model="formItem.description" type="textarea" placeholder="请输入任务描述" :rows="3"></Input>
     </FormItem>
     <FormItem>
       <Button type="primary" icon="ios-power" @click="startScan" size="large" long>
@@ -33,6 +29,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import Api from "@/utils/api"
 
 export default {
   name: "addTask",
@@ -40,48 +37,51 @@ export default {
     return {
       formItem: {
         task_name: '',
-        ip_address: '',
-        scan_model: '',
-        scan_port_type: '',
-        custom_port: ''
+        scan_ip: '',
+        task_type: "1",
+        description: '',
+        scan_port_id: ''
       },
-      scanTypeItems:[
-        {name: '全部', value: 'all'},
-        {name: '端口', value: 'port'},
-        {name: '存活', value: 'ping'},
-        {name: '漏洞', value: 'vul'}
-      ],
       portTypeItems: [
-        {name: '全部', value: 'all'},
-        {name: '常用', value: 'auto'},
-        {name: 'web', value: 'web'},
-        {name: '主机', value: 'host'},
-        {name: '自定义', value: 'custom'}
+        {name: '加载中...', id: ''},
       ]
     }
   },
   methods: {
     ...mapActions('scan', ['setScanStatus']),
     ...mapActions('modal', ['setAll']),
+    getPortTypeList(data){
+
+      if(data){
+        console.log(data)
+        Api.getPortTypeList({}).then(res => {
+
+          if(res.code == 200){
+            console.log(res.result)
+            this.portTypeItems = res.result
+          }
+        })
+      }
+    },
     //开始扫描
     startScan(){
       let param = this.formItem
-      if(param.scan_port_type != 'custom'){
-        param.custom_port = ''
-      }
-      console.log(param, this.$route.path)
-      if(this.$route.path!='/page/scan'){
-        this.$router.push('/page/scan');
-      }
-      this.setScanStatus(1)
-      this.setAll({data: {title: '',name: ''},show: false})
-      //todo
+      console.log(param)
+      Api.postTask(param).then(res =>{
+        console.log(res)
+        if(res.code == 200){
+          this.$Message.success(res.message);
+          this.setScanStatus(1)
+          this.setAll({data: {title: '',name: ''},show: false})
+        }else{
+          this.$Message.warning(res.message);
+        }
+      })
+      //
+      // if(this.$route.path!='/page/scan'){
+      //   this.$router.push('/page/scan');
+      // }
     }
-  },
-  created() {
-    //添加select默认选项
-    this.formItem.scan_model = 'all';
-    this.formItem.scan_port_type = 'all';
   }
 }
 </script>

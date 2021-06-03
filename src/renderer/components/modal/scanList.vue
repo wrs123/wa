@@ -2,7 +2,7 @@
  <div class="scan-list">
    <Table
      :columns="table.columns"
-     :data="table.data"
+     :data="taskList"
      width="600"
      size="small"
    ></Table>
@@ -12,6 +12,7 @@
 <script>
 import scanListTemplate from './scanListTemplate'
 import {mapState,mapGetters,mapActions} from 'vuex';
+import Api from "@/utils/api";
 
 export default {
   name: "scanList",
@@ -20,36 +21,43 @@ export default {
     return {
         table: {
             columns: [
-                {
-                    type: 'expand',
-                    width: 30,
-                    render: (h, params) => {
-                        return h(scanListTemplate, {
-                            props: {
-                                data : params.row
-                            }
-                        })
-                    }
-                },
-                {
+                  {
+                      type: 'expand',
+                      width: 30,
+                      render: (h, params) => {
+                          return h(scanListTemplate, {
+                              props: {
+                                  data : params.row
+                              }
+                          })
+                      }
+                  },
+                  {
                     title: '任务类型',
                     width: '100',
-                    key: 'type',
-                    align: 'left'
+                    key: 'task_type',
+                    align: 'left',
+                    render: (h, params) => {
+                      return h('span', {
+                      },'资产绘测')
+                    }
                 },{
                     title: '任务名称',
-                    key: 'name'
+                    key: 'task_name',
+                    width: '300'
                 },{
                   title: '状态',
-                  key: 'status'
-              },{
-                    title: '模式',
-                    key: 'mode',
-
-                },{
-                    title: '漏洞',
-                    key: 'leak',
-                    width: '80'
+                  key: 'status',
+                  width: 100,
+                  align: 'center',
+                render: (h, params) => {
+                  console.log(params)
+                  return h('Tag', {
+                    props: {
+                      color: params.row.status===1? 'success': params.row.status===2?'primary': 'error',
+                    },
+                  },params.row.status===1? '运行中': params.row.status===2?'已结束': '失败')
+                }
                 },{
                     title: '操作',
                     key: 'action',
@@ -71,6 +79,7 @@ export default {
                               click: ()=>{
                                 this.setShow(false)
                                 console.log(params)
+                                this.setActiveTask(params.row)
                                 if(this.$route.path != '/page/asset'){
                                   this.$router.push("/page/asset")
                                 }
@@ -86,51 +95,46 @@ export default {
                           },
                           on: {
                             click: ()=>{
-                              this.confirm()
+                              this.confirm(params.row)
                             }
                           }
                         })
                       ]);
                     }
                 }
-            ],
-            data: [
-                {
-                    type: 'mysql爆破',
-                    ctime: '2021-09-12',
-                    name: '任务1',
-                    mode: '每天一次',
-                    property: 5,
-                    status: '运行中',
-                    leak: 2,
-                    id: 0
-                },
-              {
-                type: 'mysql爆破',
-                ctime: '2021-09-12',
-                name: '任务1',
-                mode: '每天一次',
-                property: 5,
-                status: '运行中',
-                leak: 2,
-                id: 1
-              }
             ]
         }
     }
   },
+  computed: {
+    ...mapGetters('scan',{
+      taskList: 'getTaskList'
+    }),
+
+  },
   methods: {
     ...mapActions('modal', ['setShow']),
-    confirm () {
+    ...mapActions('scan', ['setActiveTask']),
+    ...mapActions('scan', ['setTaskList']),
+    confirm (id) {
       this.$Modal.confirm({
         title: '提示',
         okText: '删除',
         content: '<p>是否确定删除？</p>',
         onOk: () => {
-          this.$Message.info('Clicked ok');
+          Api.deleteTask({id: id.id}).then(res => {
+            if(res.code == 200){
+              this.$Message.success(res.message);
+              let that = this
+              Api.getTaskList({}).then(res => {
+                if(res.code == 200){
+                  this.setTaskList(res.result)
+                }
+              })
+            }
+          })
         },
         onCancel: () => {
-          this.$Message.info('Clicked cancel');
         }
       });
     },

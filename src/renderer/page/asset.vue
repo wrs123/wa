@@ -6,19 +6,22 @@
       <div class="content">
         <div class="asset-content">
           <div class="asset-tree">
-            <Select v-model="activeTask" >
-              <Option v-for="item in taskList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            <Select v-model="activeTask.id" :label-in-value="true" @on-select="changeActiveTask">
+              <Option v-for="(item,index) in taskList" :value="item.id" :key="item.index">{{ item.task_name }}</Option>
             </Select>
             <div style="height: 15px;"></div>
-            <Tree :data="tree"></Tree>
+            <Tree :data="tree"
+                  @on-toggle-expand="getAssetTypeList"
+                  @on-select-change="getAssetList"
+            ></Tree>
           </div>
           <div class="asset-detail">
-            <div class="total-content">资产: <span class="text">8</span>, 端口: <span class="text">9</span>, ip: <span class="text">9</span>, 漏洞: <span class="text">9</span></div>
+            <div class="total-content">资产: <span class="text">{{activeTotal.assetTotal}}</span>, 端口: <span class="text">{{activeTotal.portTotal}}</span>, ip: <span class="text">{{activeTotal.ipTotal}}</span>, 漏洞: <span class="text">{{activeTotal.leakTotal}}</span></div>
             <div class="asset-table">
-              <Table :columns="assetTable" :data="assetTableData" :height="tableContentHeight"></Table>
+              <Table :loading="tableLoading" :columns="assetTable" :data="assetTableData" :height="tableContentHeight"></Table>
             </div>
             <div class="page-group">
-              <Page :total="100" show-total/>
+              <Page :total="activeChild.total" :page-size=activeChild.limit @on-change="changePage" show-total/>
             </div>
           </div>
         </div>
@@ -33,6 +36,9 @@ import Sidebar from '@/components/sidebar'
 import Content from '@/components/content'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
+import {mapState,mapGetters,mapActions} from 'vuex';
+import Api from "@/utils/api";
+import tableListTemplate from '@/components/tableListTemplate';
 
 export default {
   name: "asset",
@@ -42,144 +48,157 @@ export default {
     'custom-footer': Footer,
     'custom-header': Header
   },
+  computed: {
+    ...mapGetters('scan',{
+      activeTask: 'getActiveTask'
+    }),
+    ...mapGetters('scan',{
+      taskList: 'getTaskList'
+    })
+  },
   data () {
     return {
+      tableLoading: false,
       tableContentHeight: document.documentElement.clientHeight - 270,
       activeMenuItem: "2",
+      activeChild: {
+        page: 1,
+        limit: 5,
+        total: 0,
+      },
+      activeTotal: {
+        assetTotal: 0,
+        ipTotal: 0,
+        leakTotal: 0,
+        portTotal: 0
+      },
       tree: [
         {
-          title: 'IP资产',
-          expand: true,
-          children: [
-            {
-              title: '10.16.5.0'
-            },
-            {
-              title: '192.168.33.0'
+          title: '系统资产',
+          key: 'system',
+          expand: false,
+          children: [{
+            title: '',
+            render: (h, {root, node, data}) => {
+              return [
+                h('Icon', {
+                  props: {
+                    type: 'ios-loading'
+                  },
+                  style: {
+                    marginRight: '8px',
+                    color: '#333'
+                  }
+                }),
+                h('span', {
+                  props: {
+                  },
+                  style: {
+                    marginRight: '8px',
+                    color: '#333'
+                  }
+                },'加载中...')
+              ]
             }
-          ]
+          }]
         },
         {
           title: '端口资产',
-          expand: true,
-          children: [
-            {
-              title: '22'
-            },
-            {
-              title: '81'
+          key: 'port',
+          expand: false,
+          children: [{
+            title: '',
+            render: (h, {root, node, data}) => {
+              return [
+                h('Icon', {
+                  props: {
+                    type: 'ios-loading'
+                  },
+                  style: {
+                    marginRight: '8px',
+                    color: '#333'
+                  }
+                }),
+                h('span', {
+                  props: {
+                  },
+                  style: {
+                    marginRight: '8px',
+                    color: '#333'
+                  }
+                },'加载中...')
+              ]
             }
-          ]
+          }]
         }
       ],
       assetTable: [
         {
           title: 'IP',
-          key: 'name'
+          key: 'Ip',
+          width: 140,
+          align: 'center',
+          render: (h, params) => {
+            return [
+              h('span', {
+                props: {
+
+                },style: {'font-weight': 'bold'}
+              }, params.row.Ip)
+            ]
+          }
         },
         {
           title: '端口',
-          key: 'port'
-        },
-        {
-          title: '协议',
-          key: 'address'
+          key: 'PortList',
+          align: 'center',
+          width: 80,
+          render: (h, params) => {
+            return [
+              h(tableListTemplate, {
+                props: {
+                  data: params.row.PortList
+                }
+              })
+            ]
+          }
+
         },
         {
           title: '服务',
-          key: 'address'
+          key: 'ServiceList',
+          render: (h, params) => {
+            return [
+              h(tableListTemplate, {
+                props: {
+                  data: params.row.ServiceList
+                }
+              })
+            ]
+          }
+        },
+        {
+          title: '协议',
+          key: 'protocol',
+          render: (h, {root, node, data}) => {
+            return [
+              h('span', {
+                props: {
+                },
+                style: {
+                  marginRight: '8px',
+                  color: '#333'
+                }
+              },'tcp')
+            ]
+          }
         },
         {
           title: '主机系统',
           key: 'system'
         }
       ],
-      assetTableData:[ {
-        name: 'John Brown',
-        age: 18,
-        address: 'New York No. 1 Lake Park',
-        date: '2016-10-03'
-      },
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park',
-          date: '2016-10-01'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park',
-          date: '2016-10-02'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park',
-          date: '2016-10-04'
-        },
-        {
-          name: 'John Brown',
-          age: 18,
-          address: 'New York No. 1 Lake Park',
-          date: '2016-10-03'
-        },
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park',
-          date: '2016-10-01'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park',
-          date: '2016-10-02'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park',
-          date: '2016-10-04'
-        },
-        {
-          name: 'John Brown',
-          age: 18,
-          address: 'New York No. 1 Lake Park',
-          date: '2016-10-03'
-        },
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park',
-          date: '2016-10-01'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park',
-          date: '2016-10-02'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park',
-          date: '2016-10-04'
-        }],
-      activeTask: 0,
-      taskList: [
-        {
-          value: 0,
-          label: '全部'
-        },
-        {
-          value: 1,
-          label: '任务1'
-        },{
-          value: 2,
-          label: '任务2'
-        }
-      ]
+      assetTableData:[]
     }
   },
   watch: {
@@ -187,14 +206,77 @@ export default {
       this.tableContentHeight = val
     }
   },
+  created() {
+    this.getAssetList([{
+      page: 1,
+      limit: 5
+    }])
+  },
   methods: {
+    ...mapActions('scan', ['setActiveTask']),
+    changeActiveTask(data){
+      let param = {
+        id: data.value,
+        task_name: data.label
+      }
+      this.setActiveTask(param)
+    },
+    changePage(data){
+      this.activeChild.page = data
+      console.log(this.activeChild)
+     this.getAssetList([this.activeChild])
+    },
     clickItem(res){
-
       if(res.name != this.$data.activeMenuItem){
-        console.log(res)
         this.$data.activeMenuItem = res.name
         this.$router.push({path: '/page'+res.path})
       }
+    },
+    getAssetTypeList(re){
+      Api.getAssetTypeList({type: re.key, taskId: this.activeTask.id}).then(res =>{
+        if(res.code === 200){
+          let data = []
+          for(let item in res.result.name){
+            data.push({title: res.result.name[item], type: res.result.type, page: 1, limit: 5})
+          }
+          if(re.key == 'system'){
+            this.tree[0].children = data
+          }else if(re.key == 'port'){
+            this.tree[1].children = data
+          }
+        }
+      })
+    },
+    getAssetList(re){
+      this.tableLoading = true
+      re = re[0]
+      console.log(re)
+      this.activeChild = re;
+      let params = {
+        type: re.type,
+        value: re.title,
+        taskId: this.activeTask.id,
+        page: re.page,
+        limit: re.limit
+      }
+      console.log(params)
+      Api.getAssetList(params).then(res =>{
+        let result = res.result
+        console.log(res)
+        let activeTotal = {
+          assetTotal: result.assetTotal,
+          ipTotal: result.ipTotal,
+          leakTotal: result.leakTotal,
+          portTotal: result.portTotal
+        }
+        //assetTableData
+        this.activeChild.page = res.page
+        this.activeChild.limit = res.limit
+        this.activeChild.total = res.total
+        this.activeTotal = activeTotal
+        this.assetTableData = result.list
+        this.tableLoading = false
+      })
     }
   }
 }
@@ -222,6 +304,7 @@ $treeWidth: 250px;
    background: white;
    border-radius: 4px;
    padding: 20px;
+   overflow: auto;
  }
 
   .asset-content .asset-detail{

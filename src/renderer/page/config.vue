@@ -81,7 +81,6 @@ export default {
         portList: '',
         dictionaryUrl: 'd',
         file: ''
-
       },
       configTypeList: [
         {
@@ -115,7 +114,6 @@ export default {
       });
 
       setTimeout(msg, 3000);
-
     }
   }
 }

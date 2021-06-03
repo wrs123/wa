@@ -1,7 +1,7 @@
 <template>
   <Header :style="{position: 'fixed', width: '100%'}">
     <Menu mode="horizontal" theme="dark" :active-name="activeName" @on-select="clickItem">
-      <div class="layout-logo"><span>嗯扫</span></div>
+      <div class="layout-logo"><img src="../assets/images/logo.png" alt=""><span>砺器</span></div>
       <div class="layout-nav">
         <MenuItem name="1">
           <Icon type="ios-navigate"></Icon>
@@ -62,16 +62,25 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
+.layout-logo img{
+  width: 35px;
+  height: 35px;
+}
+
+
 .layout-nav{
   width: 420px;
   margin: 0 auto;
 }
 
 .layout-logo span{
-  color: #fff;
+  color: $titleColor;
   display: inline;
   line-height: 17px;
-  font-size: 17px;
+  font-size: 20px;
+  padding-left: 5px;
+  font-weight: bold;
 }
 
 .layout-button{

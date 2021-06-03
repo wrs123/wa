@@ -1,12 +1,16 @@
 import axios from 'axios'
-import qs from 'qs'
+import {Message} from 'iview';
+import qs from 'qs';
+
+//10.164.137.150
+let BASE_URL = "http://192.168.137.1:19999/api/v1";
 
 // 创建axios实例
 const request = axios.create({
   validateStatus(status) {
     return status >= 200 && status < 504 // 设置默认的合法的状态
   },
-  baseURL: process.env.BASE_API, // api 的 base_url
+  baseURL: BASE_URL, // api 的 base_url
   timeout: 10000 // 请求超时时间
 })
 
@@ -17,13 +21,16 @@ request.defaults.shouldRetry = false // 是否重试
 // request拦截器
 request.interceptors.request.use(
   config => {
-    config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     config.headers['Accept-Language'] = 'zh-CN'
     if (config.method === 'post') {
+      config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
       if (!config.data) { // 没有参数时，config.data为null，需要转下类型
         config.data = {}
-      }
-      config.data = qs.stringify(config.data) // qs序列化参数
+      }// qs序列化参数
+      config.data = qs.stringify(config.data)
+    }
+    else if(config.method === 'get'){
+      config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     }
     return config
   },
@@ -38,32 +45,16 @@ request.interceptors.response.use(
     if (response.data.message === '依赖服务访问异常') {
       response.data.message = '网络访问异常，请重试～'
     }
-    if (response.status !== 200) {
-      return Promise.reject(response.data)
-    } else {
-      return response.data
+    if (response.status === 200) {
+      let data = response.data
+      return Promise.resolve(data)
+    }else{
+      Message.error('状态:'+response.data.code+';信息:'+response.data.message);
     }
   },
   err => {
-    var config = err.config
-    MessageBox.confirm('程序开小差啦，请点击重试按钮更新信息~', '提示', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-      type: 'warning'
-    }).then(() => {
-      // 重试次数自增
-      config.__retryCount += 1
-      // 延时处理
-      var backoff = new Promise(function(resolve) {
-        resolve()
-      })
-      // 重新发起axios请求
-      return backoff.then(function() {
-        return request(config)
-      })
-    }).catch(() => {
-      return Promise.reject(err)
-    })
+    let config = err
+    Message.error(config);
   }
 )
 

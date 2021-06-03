@@ -14,6 +14,7 @@
 <script>
 import AddScan from "./addScan";
 import {mapState,mapGetters,mapActions} from 'vuex';
+import Api from "@/utils/api";
 
 export default {
   name: "sidebar",
@@ -33,6 +34,7 @@ export default {
     AddScan
   },
   methods: {
+    ...mapActions('scan', ['setTaskList']),
     ...mapActions('modal',['setShow','setData']),
     itemClick(item){
       console.log(item)
@@ -49,6 +51,12 @@ export default {
           newList.push(itemList[i])
           continue
         }
+        Api.getTaskList({}).then(res => {
+          if(res.code == 200){
+            console.log(res)
+            this.setTaskList(res.result)
+          }
+        })
         itemList[i].isActive = false
         newList.push(itemList[i])
       }

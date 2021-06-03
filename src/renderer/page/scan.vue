@@ -22,7 +22,7 @@
                   <Icon type="ios-archive" />
                   <div class="con">
                     <span class="name">资产</span>
-                    <span class="value">6</span>
+                    <span class="value">{{boardData.detail.assetNum}}</span>
                   </div>
                 </div>
               </div>
@@ -33,7 +33,7 @@
                   <Icon type="md-ionic" />
                   <div class="con">
                     <span class="name">存活</span>
-                    <span class="value">6</span>
+                    <span class="value">{{boardData.detail.aliveHostNum}}</span>
                   </div>
                 </div>
               </div>
@@ -44,7 +44,7 @@
                   <Icon type="md-git-network" />
                   <div class="con">
                     <span class="name">端口</span>
-                    <span class="value">6</span>
+                    <span class="value">{{boardData.detail.portNum}}</span>
                   </div>
                 </div>
               </div>
@@ -55,7 +55,7 @@
                   <Icon type="ios-bug" />
                   <div class="con">
                     <span class="name">漏洞</span>
-                    <span class="value">6</span>
+                    <span class="value">{{boardData.detail.vulNum}}</span>
                   </div>
                 </div>
               </div>
@@ -85,14 +85,19 @@
                     <span class="title-icon"><Icon type="ios-flash" style="font-size: 15px;"/></span>
                     最新漏洞
                   </div>
-                  <div class="box-content" style="height: calc(100vh - 414px);">
-                    暂无数据
+                  <div class="box-content" style="height: calc(100vh - 414px);display: flex;flex-direction: column; padding: 15px;">
+                    <div class="leak-item" v-for="(item, index) in boardData.leakList" :key="index">
+                      <span class="leak">{{item.poc}}</span>
+                      <Tooltip :content="item.url" :style="{width: '50%'}" placement="top">
+                        <span class="url">{{item.url}}</span>
+                      </Tooltip>
+                    </div>
                   </div>
                 </div>
               </Row>
               <Row>
                 <div class="real-message main-box">
-                  <div class="box-content" style="height: 120px;display: flex; justify-content: space-around">
+                  <div class="box-content" style="height: 120px;display: flex; justify-content: space-around;">
                     <div style="display: flex; flex-direction: column;align-items: center">
                       <i-circle v-bind:percent="system.cpuUsed" :size="80" dashboard>
                         <span class="demo-circle-inner" style="font-size:24px">{{system.cpuUsed}}%</span>
@@ -123,6 +128,7 @@ import Sidebar from '@/components/sidebar'
 import Content from '@/components/content'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
+import Api from "@/utils/api";
 
 export default {
   name: 'scan',
@@ -139,28 +145,120 @@ export default {
       system: {
         cpuUsed: 0,
         memoryUsed: 0
+      },
+      boardData: {
+        detail: {
+          assetNum: 0,
+          aliveHostNum: 0,
+          portNum: 0,
+          vulNum: 0,
+        },
+        leakList: [{
+          url: '',
+          poc: '暂无数据'
+        }],
+        leakPie: [{value: 1048, name: '漏洞数'},
+          {value: 735, name: '正常数'}],
+        portPie: [{value: 1048, name: '80端口'},
+          {value: 300, name: '22端口'}],
+        portData: [],
+        serviceData: [],
+        vulData: [],
+        sysData: [],
+        vulSortData: {
+          row: [],
+          column: []
+        }
       }
     }
   },
   mounted(){
-    //初始化图表
-    this.$nextTick(() => {
-      this.initChar()
-    });
+    // //初始化图表
+    // this.$nextTick(() => {
+    //   this.initChar()
+    // });
   },
   computed: {
     ...mapGetters('scan',{
       scanStatus: 'getStatus'
+    }),
+    ...mapGetters('scan',{
+      activeTask: 'getActiveTask'
     })
   },
   created() {
     let that = this;
 
+    this.init()
     setInterval(()=> {
       that.getSystemInfo()
     },300)
   },
   methods: {
+    init(){
+      let that = this
+      Api.getBoardDetails({taskId: this.activeTask.id}).then(res =>{
+        if(res.code == 200){
+          this.boardData.detail = res.result
+        }
+      })
+      Api.getBoardChart({taskId: this.activeTask.id}).then(res =>{
+        if(res.code == 200){
+          console.log(res)
+          let result = res.result
+          let portDataList = [],
+              serviceData = [],
+              sysData = [],
+              vulData = [],
+              vulSortDataRow = [],
+            vulSortDataColumn = []
+           for(let item in result.portData){
+             portDataList.push({
+               name: item+'端口',
+               value: result.portData[item]
+             })
+           }
+           this.boardData.portData = portDataList
+
+          for(let item in result.serviceData){
+            serviceData.push({
+              name: item+'服务',
+              value: result.serviceData[item]
+            })
+          }
+          this.boardData.serviceData = serviceData
+
+          for(let item in result.sysData){
+            sysData.push({
+              name: item,
+              value: result.sysData[item]
+            })
+          }
+          this.boardData.sysData = sysData
+
+          for(let item in result.vulData){
+            vulData.push({
+              name: item,
+              value: result.vulData[item]
+            })
+          }
+          this.boardData.vulData = vulData
+
+          for(let item in result.vulSortData){
+            vulSortDataRow.push(item);
+            vulSortDataColumn.push(result.vulSortData[item])
+          }
+          this.boardData.vulSortData = {row: vulSortDataRow, column: vulSortDataColumn}
+            this.initChar()
+        }
+      })
+      Api.getLatestLeakList({taskId: this.activeTask.id}).then(res =>{
+        console.log(res)
+        if(res.code == 200){
+          this.boardData.leakList= res.result
+        }
+      })
+    },
     getSystemInfo(){
       let cpu = process.getCPUUsage(),
           memory = process.getSystemMemoryInfo(),
@@ -192,7 +290,6 @@ export default {
     //初始化图表
     initChar(){
       // 基于准备好的dom，初始化echarts实例
-      console.log(this.$echarts)
       let myChart = this.$echarts.init(document.getElementById('chartsContainer'))
       let myChartOptions = {
         tooltip: {
@@ -212,8 +309,7 @@ export default {
         },
         xAxis: {
           type: 'category',
-          boundaryGap: false,
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          data: this.boardData.vulSortData.row,
         },
         yAxis: {
           type: 'value'
@@ -240,10 +336,7 @@ export default {
                 position: 'inside'
               }
             },
-            data: [
-              {value: 1048, name: '搜索引擎'},
-              {value: 735, name: '直接访问'}
-            ]
+            data: this.boardData.portData
           },
           {
             name: '访问来源',
@@ -262,10 +355,7 @@ export default {
                 position: 'inside'
               }
             },
-            data: [
-              {value: 1048, name: '搜索引擎'},
-              {value: 735, name: '直接访问'}
-            ]
+            data: this.boardData.serviceData
           },
           {
             name: '访问来源',
@@ -284,10 +374,7 @@ export default {
                 position: 'inside'
               }
             },
-            data: [
-              {value: 1048, name: '搜索引擎'},
-              {value: 735, name: '直接访问'}
-            ]
+            data: this.boardData.sysData
           },
           {
             name: '访问来源',
@@ -306,30 +393,25 @@ export default {
                 position: 'inside'
               }
             },
-            data: [
-              {value: 1048, name: '搜索引擎'},
-              {value: 735, name: '直接访问'}
-            ]
+            data: this.boardData.vulData
           },
           {
             name: '漏洞数',
-            data: [20, 65, 50, 80, 32, 47, 70],
-            type: 'line',
-            smooth: 'true',
+            data: this.boardData.vulSortData.column,
+            type: 'bar',
+            barWidth : '50%',
+            showBackground: true,
+            // smooth: 'true',
             itemStyle: {
-              normal : {
-                color:'#55648a',
-                lineStyle:{
-                  color:'#55648a'
-                }
-              }
+              color: new this.$echarts.graphic.LinearGradient(
+                0, 0, 0, 1,
+                [
+                  {offset: 0, color: '#83bff6'},
+                  {offset: 0.5, color: '#188df0'},
+                  {offset: 1, color: '#188df0'}
+                ]
+              )
             },
-            areaStyle: {
-              color: 'rgba(85, 100, 138, .9)'
-            },
-            emphasis: {
-              focus: 'series'
-            }
           }]
       }
       // 绘制图表

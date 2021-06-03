@@ -6,8 +6,8 @@
       <div class="content">
         <div class="leak-content">
           <div class="leak-tree">
-            <Select v-model="activeTask" >
-              <Option v-for="item in taskList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+            <Select v-model="activeTask.id" :label-in-value="true" @on-select="changeActiveTask">
+              <Option v-for="(item , index) in taskList" :value="item.id" :key="index">{{ item.task_name }}</Option>
             </Select>
             <div style="height: 15px;"></div>
             <div class="leak-select">
@@ -21,6 +21,9 @@
           </div>
           <div class="leak-detail">
             <Table :columns="leakTable" :data="leakTableData" :height="tableContentHeight"></Table>
+            <div class="page-group">
+              <Page :total="100" show-total/>
+            </div>
           </div>
         </div>
       </div>
@@ -34,6 +37,7 @@ import Sidebar from '@/components/sidebar'
 import Content from '@/components/content'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
+import {mapState,mapGetters,mapActions} from 'vuex';
 
 export default {
   name: "leak",
@@ -43,8 +47,22 @@ export default {
     'custom-footer': Footer,
     'custom-header': Header
   },
+  computed: {
+    ...mapGetters('scan',{
+      activeTask: 'getActiveTask'
+    }),
+    ...mapGetters('scan',{
+      taskList: 'getTaskList'
+    })
+  },
+  watch: {
+    tableContentHeight(val) {
+      this.tableContentHeight = val
+    }
+  },
   data () {
     return {
+      tableContentHeight: document.documentElement.clientHeight - 240,
       activeMenuItem: "3",
       tree: [
         {
@@ -62,20 +80,6 @@ export default {
               title: 'leaf'
             }
           ]
-        }
-      ],
-      activeTask: 0,
-      taskList: [
-        {
-          value: 0,
-          label: '全部'
-        },
-        {
-          value: 1,
-          label: '任务1'
-        },{
-          value: 2,
-          label: '任务2'
         }
       ],
       leakTypeList: [
@@ -116,6 +120,15 @@ export default {
     }
   },
   methods: {
+    ...mapActions('scan', ['setActiveTask']),
+    changeActiveTask(data){
+      console.log(data)
+      let param = {
+        id: data.value,
+        task_name: data.label
+      }
+      this.setActiveTask(param)
+    },
     clickItem(res){
       if(res.name != this.$data.activeMenuItem){
         console.log(res)

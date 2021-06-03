@@ -282,5 +282,32 @@
   //padding: 10px;
 }
 
+.leak-item{
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid $dividerColor;
+  overflow: hidden;
+}
+
+.leak-item span{
+  font-size: 13px;
+
+}
+
+.leak-item .leak{
+  width: 50%;
+  font-weight: bold;
+}
+
+.leak-item .url{
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 
 
