@@ -96,13 +96,14 @@ const api = {
       })
     })
   },
+
   /**
    * 创建任务
    * @param param
    */
   postTask(params){
     return new Promise((resolve, reject) => {
-      request.post('/task/createTask', params).then(res =>{
+      request.post('/vul/getVulType', params).then(res =>{
         resolve(res)
         console.log(res)
       }).catch( err =>{
@@ -154,6 +155,51 @@ const api = {
       })
     })
   },
+
+  /**
+   * 获取报告数据
+   * @param params
+   * @returns {Promise<unknown>}
+   */
+  getReport(params){
+    return new Promise((resolve, reject) => {
+      request.get('/report/getReportData', {params: params}).then(res =>{
+        resolve(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
+  },
+
+  /**
+   *  获取漏洞类型列表
+   * @param params
+   * @returns {Promise<unknown>}
+   */
+  getLeakType(params){
+    return new Promise((resolve, reject) => {
+      request.get('/vul/getVulType', {params: params}).then(res =>{
+        resolve(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
+  },
+
+  /**
+   *  获取漏洞列表
+   * @param params
+   * @returns {Promise<unknown>}
+   */
+  getLeakList(params){
+    return new Promise((resolve, reject) => {
+      request.get('/vul/getVulListByPage', {params: params}).then(res =>{
+        resolve(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
+  }
 }
 
 export default api

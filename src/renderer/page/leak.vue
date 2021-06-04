@@ -11,18 +11,18 @@
             </Select>
             <div style="height: 15px;"></div>
             <div class="leak-select">
-              <div :class="['leak-select-item',{'active': item.id==activeLeak}]"
-                   v-for="item in leakTypeList" :key="item.id"
-                  @click="chooseLeakType(item)"
+              <div :class="['leak-select-item',{'active': item.id==activeLeak.id}]"
+                   v-for="(item, index) in leakTypeList" :key="item.id"
+                  @click="changeType(item)"
               >
                 {{item.name}}
               </div>
             </div>
           </div>
           <div class="leak-detail">
-            <Table :columns="leakTable" :data="leakTableData" :height="tableContentHeight"></Table>
+            <Table :loading="tableLoading" :columns="leakTable" :data="leakTableData" :height="tableContentHeight"></Table>
             <div class="page-group">
-              <Page :total="100" show-total/>
+              <Page :total="activeLeak.total" :page-size="activeLeak.limit" @on-change="changePage" show-total/>
             </div>
           </div>
         </div>
@@ -38,6 +38,8 @@ import Content from '@/components/content'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import {mapState,mapGetters,mapActions} from 'vuex';
+import Api from "@/utils/api";
+import leakListTemplate from "../components/leakListTemplate";
 
 export default {
   name: "leak",
@@ -60,67 +62,83 @@ export default {
       this.tableContentHeight = val
     }
   },
+  created() {
+    //获取漏洞类型数据
+    this.getLeakType()
+  },
   data () {
     return {
+      tableLoading: false,
       tableContentHeight: document.documentElement.clientHeight - 240,
       activeMenuItem: "3",
-      tree: [
-        {
-          title: 'xss注入',
-          expand: true,
-        },
-        {
-          title: '弱密码',
-          expand: true,
-          children: [
-            {
-              title: 'leaf'
-            },
-            {
-              title: 'leaf'
-            }
-          ]
-        }
-      ],
-      leakTypeList: [
-        {
-          id: 0,
-          name: 'xss注入'
-        },{
-          id: 1,
-          name: '弱口令'
-        },{
-          id: 2,
-          name: 'MS107-010'
-        }
-      ],
-      activeLeak: 0,
+      leakTypeList: [],
+      activeLeak: {},
       leakTable: [
+        {
+          type: 'expand',
+          width: 30,
+          render: (h, params) => {
+            return h(leakListTemplate, {
+              props: {
+                data : params.row
+              }
+            })
+          }
+        },
       {
-        title: '漏洞名称',
-        key: 'name'
+        title: '漏洞poc',
+        key: 'poc'
       },
       {
         title: 'IP',
-        key: 'port'
+        key: 'ip',
+        render: (h, params) => {
+          return h('span', {
+            props: {
+            }
+          },params.row.ip==''?'--':params.row.ip)
+        }
       },
       {
         title: '端口',
-        key: 'address'
+        key: 'port',
+        width: 100,
+        render: (h, params) => {
+          return h('span', {
+            props: {
+            }
+          },params.row.port==''?'--':params.row.port)
+        }
       }
     ],
-      leakTableData: [
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park',
-          date: '2016-10-01'
-        },
-      ]
+      leakTableData: []
     }
   },
   methods: {
     ...mapActions('scan', ['setActiveTask']),
+    changePage(data){
+      this.activeLeak.page = data
+      this.getLeakList(this.activeLeak)
+    },
+    getLeakType(){
+      Api.getLeakType({taskId: this.activeTask.id, type: 'vul'}).then(res => {
+        if(res.code == 200){
+          let list = []
+          for(let i in res.result){
+            list.push({
+              id: i,
+              name: res.result[i],
+              page: 1,
+              limit: 5
+            });
+          }
+          this.leakTypeList = list
+          this.activeLeak = list[0]
+          console.log(list[0].name)
+          this.getLeakList({page:1,limit: 5, name: list[0].name})
+        }
+      })
+    },
     changeActiveTask(data){
       console.log(data)
       let param = {
@@ -136,10 +154,31 @@ export default {
         this.$router.push({path: '/page'+res.path})
       }
     },
-    chooseLeakType(item){
-      console.log(item)
-      if(this.activeLeak != item.id){
-        this.activeLeak = item.id
+    changeType(item){
+      if(this.activeLeak.id != item.id){
+        this.activeLeak = item
+        this.getLeakList(item)
+      }
+
+    },
+    getLeakList(item){
+      if(!this.tableLoading){
+        this.tableLoading = true
+        console.log(item)
+        let params = {
+          taskId: this.activeTask.id,
+          page: item.page,
+          limit: item.limit,
+          value: item.name
+        }
+        Api.getLeakList(params).then(res => {
+          if(res.code === 200){
+            console.log(res)
+            this.leakTableData = res.result
+            this.activeLeak.total = res.total
+          }
+          this.tableLoading = false
+        })
       }
     }
   }

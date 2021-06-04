@@ -25,10 +25,15 @@
                         label-position="right"
                         :label-width="100"
                         v-if="activeConfigType==1"
+                        class="scanConfig"
                   >
-                    <FormItem label="扫描端口列表：">
-                      <Input v-model="formItem.task_name" type="textarea" placeholder="请输入端口集，使用英文','分隔"></Input>
-                    </FormItem>
+                    <span class="title">扫描端口列表：</span>
+                    <div class="scan-list">
+                      <div style="padding: 10px 0;">
+                        <Button type="primary" icon="md-add-circle">添加</Button>
+                      </div>
+                      <Table border :columns="scanTableColumn" :data="scanTableData"></Table>
+                    </div>
                     <FormItem v-if="formItem.scan_port_type=='custom'">
                       <Input v-model="formItem.custom_port" type="textarea" placeholder="请输入自定义端口" :rows="3"></Input>
                     </FormItem>
@@ -82,6 +87,73 @@ export default {
         dictionaryUrl: 'd',
         file: ''
       },
+      scanTableColumn: [
+        {
+          title: '端口类型',
+          key: 'age',
+          width: 85,
+          align: 'center'
+        },
+        {
+          title: '端口集',
+          key: 'address'
+        },
+        {
+          title: 'Action',
+          key: 'action',
+          width: 125,
+          align: 'center',
+          render: (h, params) => {
+            return h('div', [
+              h('Button', {
+                props: {
+                  type: 'primary',
+                  size: 'small'
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  click: () => {
+                    this.show(params.index)
+                  }
+                }
+              }, '修改'),
+              h('Button', {
+                props: {
+                  type: 'error',
+                  size: 'small'
+                },
+                on: {
+                  click: () => {
+                    this.remove(params.index)
+                  }
+                }
+              }, '删除')
+            ]);
+          }
+        }
+      ],
+      scanTableData: [ {
+        name: 'John Brown',
+        age: 18,
+        address: 'New York No. 1 Lake Park'
+      },
+        {
+          name: 'Jim Green',
+          age: 24,
+          address: 'London No. 1 Lake Park'
+        },
+        {
+          name: 'Joe Black',
+          age: 30,
+          address: 'Sydney No. 1 Lake Park'
+        },
+        {
+          name: 'Jon Snow',
+          age: 26,
+          address: 'Ottawa No. 2 Lake Park'
+        }],
       configTypeList: [
         {
           name: '扫描设置',
@@ -96,7 +168,6 @@ export default {
   },
   methods: {
     clickItem(res){
-
       if(res.name != this.$data.activeMenuItem){
         console.log(res)
         this.$data.activeMenuItem = res.name
@@ -127,8 +198,7 @@ export default {
   }
 
   .config-content .box-content{
-    width: 700px;
-    min-width: 700px;
+    width: 100%;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -138,6 +208,10 @@ export default {
     width: calc(100% - 180px);
     height: 100%;
     padding: 20px;
+  }
+
+  .config-content .main-box{
+    width: 100%;
   }
 
   .main-box .box-title{
@@ -200,5 +274,13 @@ export default {
 
   .cursorPointer{
     cursor: pointer;
+  }
+
+  .scanConfig .title{
+    font-size: 14px;
+  }
+
+  .scanConfig .scan-list{
+
   }
 </style>
