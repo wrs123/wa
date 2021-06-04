@@ -199,7 +199,51 @@ const api = {
         reject(err)
       })
     })
-  }
+  },
+  /**
+   * 设置自定义端口
+   * @param params
+   * @returns {Promise<unknown>}
+   */
+  setPortConfigList(params){
+    return new Promise((resolve, reject) => {
+      request.post('/port/cratePort', params).then(res =>{
+        resolve(res)
+        console.log(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
+  },
+  /**
+   * 修改自定义端口
+   * @param params
+   * @returns {Promise<unknown>}
+   */
+  editPortConfigList(params){
+    return new Promise((resolve, reject) => {
+      request.post('/port/updatePort', params).then(res =>{
+        resolve(res)
+        console.log(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
+  },
+  /**
+   *
+   * @param params
+   * @returns {Promise<unknown>}
+   */
+  getPortConfigList(params){
+    return new Promise((resolve, reject) => {
+      request.get('/port/getPortByPage', {params: params}).then(res =>{
+        resolve(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
+  },
 }
 
 export default api

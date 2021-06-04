@@ -6,10 +6,10 @@
       <div class="content" id="reportContainer">
         <div class="report-content main-box">
           <div class="box-title">
-            <span>测试报告</span>
-            <div class="action-buttong">
-              <Button icon="md-cloud-download" type="primary" @click="downloadReport()">下载</Button>
-            </div>
+            <span>{{activeTask.task_name}}报告</span>
+<!--            <div class="action-buttong">-->
+<!--              <Button icon="md-cloud-download" type="primary" @click="downloadReport()">下载</Button>-->
+<!--            </div>-->
           </div>
           <div class="box-content">
             <span class="title1 line">1. 概述</span>
@@ -38,25 +38,28 @@
           </div>
             <span class="title2 line u1">1.2 任务详情</span>
             <div class="line taskDetailsTable">
-              <Table :columns="taskDetailsColumn" :data="reportData.taskInfo" :border="true"></Table>
+              <Table :columns="taskDetailsColumn" :data="taskDetailsData" :border="true"></Table>
             </div>
             <span class="title2 line u1">1.3 资产分布</span>
-            <span class="title2 line u2">1.3.1 IP资产分布</span>
-            <div class="line u2">
-              <span class="title2">扫描网段：192.168.1.1</span>
-              <div>
-                <div>
-                  <span class="died"></span>
-                  <span>不存活</span>
-                </div>
-                <div>
-                  <span class="died"></span>
-                  <span>存活</span>
-                </div>
+            <span class="title2 line u2">1.3.1 软件资产分布</span>
+            <div class="border soft-asset line">
+              <div class="charts" id="softPie"></div>
+              <div class="list">
+                <assetPersentListTemplate :data="reportData.serviceData"></assetPersentListTemplate>
               </div>
             </div>
-            <div class="assetDistribute"></div>
-        </div>
+            <span class="title2 line u2">1.3.2 端口资产分布</span>
+            <div class="border port-asset line">
+              <div class="charts" id="portPie"></div>
+              <div class="list">
+                <assetPersentListTemplate :data="reportData.portData"></assetPersentListTemplate>
+              </div>
+            </div>
+            <span class="title1 line ">2. 漏洞</span>
+            <Table :columns="leakTable" :data="reportData.vul"></Table>
+            <span class="title1 line ">2. 资产</span>
+            <Table :columns="assetTable" :data="reportData.Assets"></Table>
+          </div>
       </div>
       </div>
       <custom-footer></custom-footer>
@@ -71,6 +74,10 @@ import Footer from '@/components/footer'
 import Header from '@/components/header'
 import Api from "@/utils/api";
 import {mapState,mapGetters,mapActions} from 'vuex';
+import assetPersentListTemplate from '../components/reportTemplate/assetPersentListTemplate';
+import leakListTemplate from "../components/leakLIstTemplate";
+import tableListTemplate from '@/components/tableListTemplate';
+import hostLayerTemplate from '@/components/hostLayerTemplate';
 
 export default {
   name: "report",
@@ -78,7 +85,8 @@ export default {
     'custom-sidebar':Sidebar,
     'custom-content':Content,
     'custom-footer': Footer,
-    'custom-header': Header
+    'custom-header': Header,
+    'assetPersentListTemplate': assetPersentListTemplate
   },
   computed: {
     ...mapGetters('scan',{
@@ -87,6 +95,125 @@ export default {
   },
   data () {
     return {
+      leakTable: [
+        {
+          type: 'expand',
+          width: 30,
+          render: (h, params) => {
+            return h(leakListTemplate, {
+              props: {
+                data : params.row
+              }
+            })
+          }
+        },
+        {
+          title: '漏洞poc',
+          key: 'poc'
+        },
+        {
+          title: 'IP',
+          key: 'ip',
+          render: (h, params) => {
+            return h('span', {
+              props: {
+              }
+            },params.row.ip==''?'--':params.row.ip)
+          }
+        },
+        {
+          title: '端口',
+          key: 'port',
+          width: 100,
+          render: (h, params) => {
+            return h('span', {
+              props: {
+              }
+            },params.row.port==''?'--':params.row.port)
+          }
+        }
+      ],
+      assetTable: [
+        {
+          title: 'IP',
+          key: 'Ip',
+          width: 140,
+          align: 'center',
+          render: (h, params) => {
+            return [
+              h('span', {
+                props: {
+
+                },style: {'font-weight': 'bold'}
+              }, params.row.Ip)
+            ]
+          }
+        },
+        {
+          title: '端口',
+          key: 'PortList',
+          align: 'center',
+          width: 80,
+          render: (h, params) => {
+            return [
+              h(tableListTemplate, {
+                props: {
+                  data: params.row.PortList
+                }
+              })
+            ]
+          }
+
+        },
+        {
+          title: '服务',
+          key: 'ServiceList',
+          render: (h, params) => {
+            return [
+              h(tableListTemplate, {
+                props: {
+                  data: params.row.ServiceList
+                }
+              })
+            ]
+          }
+        },
+        {
+          title: '协议',
+          key: 'Protocol',
+          width: 100,
+          align: 'center',
+          render: (h, {root, node, data}) => {
+            return [
+              h('span', {
+                props: {
+                },
+                style: {
+                  marginRight: '8px',
+                  color: '#333'
+                }
+              },'tcp')
+            ]
+          }
+        },
+        {
+          title: '主机系统',
+          key: 'System',
+          align: 'center',
+          width: 170,
+          render: (h, params) => {
+            return [
+              h(hostLayerTemplate, {
+                props: {
+                  system: params.row.System,
+                  service: params.row.Service
+                }
+              })
+            ]
+          }
+        }
+      ],
+      loading: false,
       reportData: {
 
       },
@@ -104,20 +231,7 @@ export default {
           className: 'value'
         }
       ],
-      taskDetailsData: [{
-        name: '任务名称',
-        value: 'task99990'
-      },{
-        name: 'Ip',
-        value: ''
-      },{
-        name: '端口',
-        value: 'task99990'
-      },
-        {
-          name: '漏洞',
-          value: 'task99990'
-        }]
+      taskDetailsData: []
     }
   },
   created() {
@@ -125,12 +239,35 @@ export default {
   },
   methods: {
     getReport(){
-      Api.getReport({taskId: this.activeTask.id}).then(res => {
-        if(res.code === 200){
-          console.log(res.result)
-          this.reportData = res.result
-        }
-      })
+      if(!this.loading){
+        this.loading = true
+        Api.getReport({taskId: this.activeTask.id}).then(res => {
+          if(res.code === 200){
+            console.log(res.result)
+            let result = res.result,
+                taskInfo = result.taskInfo
+            this.reportData = res.result
+            this.taskDetailsData = [
+              {
+                name: '任务名',
+                value: taskInfo.task_name
+              },
+              {
+                name: 'IP',
+                value: taskInfo.scan_ip
+              },{
+                name: '端口',
+                value: taskInfo.port_list
+              },{
+                name: '漏洞',
+                value: "社区版poc"
+              }
+            ]
+            this.initCharts()
+          }
+          this.loading = false
+        })
+      }
     },
     downloadReport(){
       console.log(this)
@@ -143,6 +280,94 @@ export default {
         this.$data.activeMenuItem = res.name
         this.$router.push({path: '/page'+res.path})
       }
+    },
+    initCharts(){
+      // 基于准备好的dom，初始化echarts实例
+      let softPie = this.$echarts.init(document.getElementById('softPie')),
+          portPie = this.$echarts.init(document.getElementById('portPie'))
+      let softPieOptions = {
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          orient: 'vertical',
+          left: 'left',
+        },
+        series: [
+          {
+            name: '访问来源',
+            type: 'pie',
+            radius: ['40%', '70%'],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: '#fff',
+              borderWidth: 2
+            },
+            label: {
+              show: false,
+              position: 'center'
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: '40',
+                fontWeight: 'bold'
+              }
+            },
+            labelLine: {
+              show: false
+            },
+            data: [
+              {value: 1048, name: '搜索引擎'},
+              {value: 735, name: '直接访问'},
+              {value: 580, name: '邮件营销'},
+              {value: 484, name: '联盟广告'},
+              {value: 300, name: '视频广告'}
+            ]
+          }
+        ]
+      }
+      let portPieOptions = {
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          orient: 'vertical',
+          left: 'left',
+        },
+        series: [
+          {
+            name: '访问来源',
+            type: 'pie',
+            radius: ['40%', '70%'],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: '#fff',
+              borderWidth: 2
+            },
+            label: {
+              show: false,
+              position: 'center'
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: '40',
+                fontWeight: 'bold'
+              }
+            },
+            labelLine: {
+              show: false
+            },
+            data: this.reportData.portData
+          }
+        ]
+      }
+      // 绘制图表
+      softPie.setOption(softPieOptions);
+      portPie.setOption(portPieOptions);
     }
   }
 }

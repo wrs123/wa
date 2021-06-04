@@ -1,5 +1,19 @@
 <template>
   <div class="layout">
+    <Modal
+      v-model="addModal"
+      title="Common Modal dialog box title"
+      @on-ok="addPortConfig"
+    >
+      <Form :model="formItem" :label-width="80">
+        <FormItem label="端口类型">
+          <Input v-model="portConfig.name" placeholder="请输入端口类型"></Input>
+        </FormItem>
+        <FormItem label="端口列表">
+          <Input v-model="portConfig.port_list" type="textarea" :row="2" placeholder="请输入端口列表，使用，分隔"></Input>
+        </FormItem>
+      </Form>
+    </Modal>
     <Layout>
       <custom-header v-bind:activeName="activeMenuItem" @clickItem="clickItem"></custom-header>
       <div class="content">
@@ -30,9 +44,9 @@
                     <span class="title">扫描端口列表：</span>
                     <div class="scan-list">
                       <div style="padding: 10px 0;">
-                        <Button type="primary" icon="md-add-circle">添加</Button>
+                        <Button type="primary" icon="md-add-circle" @click="addModal = true">添加</Button>
                       </div>
-                      <Table border :columns="scanTableColumn" :data="scanTableData"></Table>
+                      <Table border :columns="scanTableColumn" :data="portConfigList"></Table>
                     </div>
                     <FormItem v-if="formItem.scan_port_type=='custom'">
                       <Input v-model="formItem.custom_port" type="textarea" placeholder="请输入自定义端口" :rows="3"></Input>
@@ -71,6 +85,7 @@
 import Sidebar from '@/components/sidebar'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
+import Api from "@/utils/api";
 
 export default {
   name: "config",
@@ -79,8 +94,12 @@ export default {
     'custom-footer': Footer,
     'custom-header': Header
   },
+  created() {
+    this.getPortList()
+  },
   data () {
     return {
+      addModal: false,
       activeMenuItem: "0",
       formItem: {
         portList: '',
@@ -90,13 +109,13 @@ export default {
       scanTableColumn: [
         {
           title: '端口类型',
-          key: 'age',
+          key: 'name',
           width: 85,
           align: 'center'
         },
         {
           title: '端口集',
-          key: 'address'
+          key: 'port_list'
         },
         {
           title: 'Action',
@@ -115,7 +134,8 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.show(params.index)
+                    this.portConfig = params.row
+                    this.addModal = true
                   }
                 }
               }, '修改'),
@@ -163,10 +183,53 @@ export default {
           id: '2'
         }
       ],
-      activeConfigType: 1
+      activeConfigType: 1,
+      portConfig:{
+        name: '',
+        port_list: '',
+        id: ''
+      },
+      portConfigList: []
     }
   },
   methods: {
+    addPortConfig(res){
+      console.log(res)
+      if(res != ''){
+        Api.setPortConfigList(this.portConfig).then(res => {
+          if(res === 200){
+            this.portConfig = {
+              name: '',
+              port_list: '',
+              id: ''
+            }
+          }
+          this.$Message.success("添加成功")
+          this.getPortList()
+        })
+      }else{
+        Api.editPortConfigList(this.portConfig).then(res => {
+          if(res === 200){
+            this.portConfig = {
+              name: '',
+              port_list: '',
+              id: ''
+            }
+          }
+          this.$Message.success("修改成功")
+          this.getPortList()
+        })
+      }
+
+    },
+    getPortList(){
+      Api.getPortConfigList({page:1,limit:99999999}).then(res => {
+        if(res.code === 200){
+          console.log(res.result)
+          this.portConfigList = res.result
+        }
+      })
+    },
     clickItem(res){
       if(res.name != this.$data.activeMenuItem){
         console.log(res)
@@ -208,6 +271,7 @@ export default {
     width: calc(100% - 180px);
     height: 100%;
     padding: 20px;
+    overflow: auto;
   }
 
   .config-content .main-box{
