@@ -1,6 +1,8 @@
 <template>
   <div class="list">
+    <span v-if="data.length==0">--</span>
     <div class="item"
+         v-if="data.length != 0"
       v-for="(item, index) in data"
          :key="index"
     >

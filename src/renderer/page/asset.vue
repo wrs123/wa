@@ -39,6 +39,7 @@ import Header from '@/components/header'
 import {mapState,mapGetters,mapActions} from 'vuex';
 import Api from "@/utils/api";
 import tableListTemplate from '@/components/tableListTemplate';
+import hostLayerTemplate from '@/components/hostLayerTemplate';
 
 export default {
   name: "asset",
@@ -180,6 +181,8 @@ export default {
         {
           title: '协议',
           key: 'protocol',
+          width: 100,
+          align: 'center',
           render: (h, {root, node, data}) => {
             return [
               h('span', {
@@ -195,7 +198,19 @@ export default {
         },
         {
           title: '主机系统',
-          key: 'system'
+          key: 'system',
+          align: 'center',
+          width: 170,
+          render: (h, params) => {
+            return [
+              h(hostLayerTemplate, {
+                props: {
+                  system: params.row.System,
+                  service: params.row.Service
+                }
+              })
+            ]
+          }
         }
       ],
       assetTableData:[]

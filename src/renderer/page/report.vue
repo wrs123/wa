@@ -30,10 +30,6 @@
               </div>
               <div class="count-unit">
                 <span class="count">4</span>
-                <span class="name">软件</span>
-              </div>
-              <div class="count-unit">
-                <span class="count">4</span>
                 <span class="name">漏洞</span>
               </div>
           </div>

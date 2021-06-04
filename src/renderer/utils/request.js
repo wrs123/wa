@@ -2,15 +2,16 @@ import axios from 'axios'
 import {Message} from 'iview';
 import qs from 'qs';
 
-//10.164.137.150
-let BASE_URL = "http://192.168.137.1:19999/api/v1";
+
+let BASE_URL_CUI = "http://10.31.16.117:19999/api/v1";
+let BASE_URL_XING = "http://10.31.16.198:19999/api/v1";
 
 // 创建axios实例
 const request = axios.create({
   validateStatus(status) {
     return status >= 200 && status < 504 // 设置默认的合法的状态
   },
-  baseURL: BASE_URL, // api 的 base_url
+  baseURL: BASE_URL_XING, // api 的 base_url
   timeout: 10000 // 请求超时时间
 })
 
