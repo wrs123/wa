@@ -137,7 +137,7 @@ export default {
         {
           title: 'IP',
           key: 'Ip',
-          width: 140,
+          width: 135,
           align: 'center',
           render: (h, params) => {
             return [
@@ -168,6 +168,7 @@ export default {
         {
           title: '服务',
           key: 'ServiceList',
+          width: 120,
           render: (h, params) => {
             return [
               h(tableListTemplate, {
@@ -181,8 +182,8 @@ export default {
         {
           title: '协议',
           key: 'protocol',
-          width: 100,
           align: 'center',
+          width: 70,
           render: (h, {root, node, data}) => {
             return [
               h('span', {

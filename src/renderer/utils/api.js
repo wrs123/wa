@@ -201,28 +201,13 @@ const api = {
     })
   },
   /**
-   * 设置自定义端口
-   * @param params
-   * @returns {Promise<unknown>}
-   */
-  setPortConfigList(params){
-    return new Promise((resolve, reject) => {
-      request.post('/port/cratePort', params).then(res =>{
-        resolve(res)
-        console.log(res)
-      }).catch( err =>{
-        reject(err)
-      })
-    })
-  },
-  /**
    * 修改自定义端口
    * @param params
    * @returns {Promise<unknown>}
    */
-  editPortConfigList(params){
+  postPortConfig(params){
     return new Promise((resolve, reject) => {
-      request.post('/port/updatePort', params).then(res =>{
+      request.post('/port/postPortConfig', params).then(res =>{
         resolve(res)
         console.log(res)
       }).catch( err =>{
@@ -238,6 +223,35 @@ const api = {
   getPortConfigList(params){
     return new Promise((resolve, reject) => {
       request.get('/port/getPortByPage', {params: params}).then(res =>{
+        resolve(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
+  },
+  /**
+   * 删除端口设置
+   * @param params
+   * @returns {Promise<unknown>}
+   */
+  deletePortConfig(params){
+    return new Promise((resolve, reject) => {
+      request.post('/port/deletePort', params).then(res =>{
+        resolve(res)
+        console.log(res)
+      }).catch( err =>{
+        reject(err)
+      })
+    })
+  },
+  /**
+   * 获取字典下载路jing
+   * @param params
+   * @returns {Promise<unknown>}
+   */
+  getDicUrl(params){
+    return new Promise((resolve, reject) => {
+      request.get('/config/downloadDict', {params: params}).then(res =>{
         resolve(res)
       }).catch( err =>{
         reject(err)

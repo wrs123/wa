@@ -54,23 +54,18 @@
                   </Form>
                   <Form v-if="activeConfigType==2">
                     <FormItem label="上传字典：">
-                      <Upload action="">
-                        <Button icon="ios-cloud-upload-outline">Upload files</Button>
+                      <Upload action="http://10.31.16.198:19999/api/v1/config/uploadDictConfig">
+                        <Button icon="ios-cloud-upload-outline">上传文件</Button>
                       </Upload>
                     </FormItem>
                     <FormItem>
-                      <div :class="['uploadedFile',{'cursorPointer':formItem.dictionaryUrl!=''}]">
-                        无字典上传
-                        <a href="dictionaryUrl" v-if="formItem.dictionaryUrl!=''"></a>
+                      <div :class="['uploadedFile',{'cursorPointer':formItem.dictionaryUrl.fileName!=''}]">
+                        <span v-if="formItem.dictionaryUrl.fileName==''"></span>
+                        <a  v-if="formItem.dictionaryUrl.fileName!=''">{{formItem.dictionaryUrl.fileName}}</a>
                       </div>
                     </FormItem>
                   </Form>
                 </div>
-              </div>
-              <div class="save-button">
-                <Button type="primary" icon="md-construct" @click="saveConfig()" size="large" long>
-                  <span>保存设置</span>
-                </Button>
               </div>
             </div>
           </div>
@@ -96,6 +91,7 @@ export default {
   },
   created() {
     this.getPortList()
+    this.getDicUrl()
   },
   data () {
     return {
@@ -103,9 +99,13 @@ export default {
       activeMenuItem: "0",
       formItem: {
         portList: '',
-        dictionaryUrl: 'd',
+        dictionaryUrl: {
+          fileName: '',
+          url: ''
+        },
         file: ''
       },
+      dicUrl: '',
       scanTableColumn: [
         {
           title: '端口类型',
@@ -146,7 +146,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.remove(params.index)
+                    this.deletePortConfig(params.row)
                   }
                 }
               }, '删除')
@@ -193,33 +193,37 @@ export default {
     }
   },
   methods: {
-    addPortConfig(res){
-      console.log(res)
-      if(res != ''){
-        Api.setPortConfigList(this.portConfig).then(res => {
-          if(res === 200){
-            this.portConfig = {
-              name: '',
-              port_list: '',
-              id: ''
-            }
-          }
-          this.$Message.success("添加成功")
+    getDicUrl(){
+      console.log(11)
+      Api.getDicUrl({}).then(res => {
+        if(res.code == 200){
+          console.log(res)
+            this.formItem.dictionaryUrl = res.result
+        }
+      })
+    },
+    deletePortConfig(res){
+      console.log(this.portConfig)
+      Api.deletePortConfig(res).then(res => {
+        if(res.code === 200){
+          this.$Message.success("删除成功")
           this.getPortList()
-        })
-      }else{
-        Api.editPortConfigList(this.portConfig).then(res => {
-          if(res === 200){
-            this.portConfig = {
-              name: '',
-              port_list: '',
-              id: ''
-            }
+        }
+      })
+    },
+    addPortConfig(){
+      console.log()
+      Api.postPortConfig(this.portConfig).then(res => {
+        if(res === 200){
+          this.portConfig = {
+            name: '',
+            port_list: '',
+            id: ''
           }
-          this.$Message.success("修改成功")
-          this.getPortList()
-        })
-      }
+        }
+        this.$Message.success("操作成功")
+        this.getPortList()
+      })
 
     },
     getPortList(){

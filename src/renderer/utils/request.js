@@ -11,7 +11,7 @@ const request = axios.create({
   validateStatus(status) {
     return status >= 200 && status < 504 // 设置默认的合法的状态
   },
-  baseURL: BASE_URL_CUI, // api 的 base_url
+  baseURL: BASE_URL_XING, // api 的 base_url
   timeout: 10000 // 请求超时时间
 })
 

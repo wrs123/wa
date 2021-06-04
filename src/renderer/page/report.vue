@@ -7,9 +7,9 @@
         <div class="report-content main-box">
           <div class="box-title">
             <span>{{activeTask.task_name}}报告</span>
-<!--            <div class="action-buttong">-->
-<!--              <Button icon="md-cloud-download" type="primary" @click="downloadReport()">下载</Button>-->
-<!--            </div>-->
+            <div class="action-buttong">
+              <Button icon="md-cloud-download" type="primary" @click="downloadReport()">下载</Button>
+            </div>
           </div>
           <div class="box-content">
             <span class="title1 line">1. 概述</span>
