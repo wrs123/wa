@@ -1,6 +1,6 @@
 <template>
   <div class="flashContent">
-    <span class="logo">liQi</span>
+    <span class="logo"><img src="../assets/images/logo.png" alt=""><span>砺器</span></span>
     <span class="status">{{message}}</span>
   </div>
 </template>
@@ -46,24 +46,36 @@ export default{
 </script>
 
 <style lang="scss" scoped>
-  .flashContent{
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
+.flashContent{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 
-  .flashContent .logo{
-    font-size: 90px;
-    color: $titleColor;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
+.flashContent .logo{
+  font-size: 85px;
+  color: $titleColor;
+  font-weight: bold;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+}
 
-  .flashContent .status{
-    font-size: 18px;
-    color: $contentColor;
-  }
+.logo img{
+  width: 100px;
+  height: 100px;
+}
+
+.logo span{
+  margin-left: 10px;
+  line-height: 1;
+}
+
+.flashContent .status{
+  font-size: 18px;
+  color: $contentColor;
+}
 </style>

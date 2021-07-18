@@ -137,7 +137,7 @@ export default {
         {
           title: 'IP',
           key: 'Ip',
-          width: 135,
+          // width: 135,
           align: 'center',
           render: (h, params) => {
             return [
