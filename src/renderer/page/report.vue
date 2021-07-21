@@ -3,7 +3,11 @@
     <Layout>
       <custom-sidebar></custom-sidebar>
       <custom-header v-bind:activeName="activeMenuItem" @clickItem="clickItem"></custom-header>
-      <div class="content" id="reportContainer">
+      <div class="content" id="reportContainer" :style="{'overflow': loading ? 'hidden': 'auto'}">
+        <Spin size="large" fix v-if="loading">
+          <Icon type="ios-loading" size=18 class="demo-spin-icon-load"></Icon>
+          <div>加载中...</div>
+        </Spin>
         <div class="report-content main-box">
           <div class="box-title">
             <span>{{activeTask.task_name}}报告</span>
