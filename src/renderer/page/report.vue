@@ -100,6 +100,8 @@ export default {
   },
   data () {
     return {
+      pdfUrl: '',
+      pdfModal: false,
       leakTable: [
         {
           type: 'expand',
@@ -244,7 +246,12 @@ export default {
   },
   methods: {
     handleDown () {
-      htmlToPdf.downloadPDF(document.querySelector('#demo'), '扫描报告')
+      let that = this
+      htmlToPdf.downloadPDF(document.querySelector('#demo'), '扫描报告', (res) => {
+        this.$Message.success('生成报告成功,导出中，清耐心等待');
+      })
+
+
     },
     getReport(){
       if(!this.loading){

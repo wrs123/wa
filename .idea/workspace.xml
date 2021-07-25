@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="453d145d-f765-40db-9fff-8324ded6b66e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.electron-vue/build.js" beforeDir="false" afterPath="$PROJECT_DIR$/.electron-vue/build.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/components/leakLIstTemplate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/components/leakLIstTemplate.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/components/modal/addTask.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/components/modal/addTask.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/page/report.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/report.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/utils/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/utils/api.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/utils/htmlToPdf.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/utils/htmlToPdf.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/utils/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/utils/request.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +137,7 @@
       <workItem from="1626918277007" duration="6721000" />
       <workItem from="1627001468363" duration="3679000" />
       <workItem from="1627090854373" duration="2653000" />
-      <workItem from="1627178061390" duration="9309000" />
+      <workItem from="1627178061390" duration="13175000" />
     </task>
     <servers />
   </component>
