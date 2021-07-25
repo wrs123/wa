@@ -67,7 +67,7 @@ export default {
     startScan(){
       let param = this.formItem
       console.log(param)
-      Api.postTask(param).then(res =>{
+      Api.createTask(param).then(res =>{
         console.log(res)
         if(res.code == 200){
           this.$Message.success(res.message);

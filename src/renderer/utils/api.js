@@ -97,20 +97,20 @@ const api = {
     })
   },
 
-  /**
-   * 创建任务
-   * @param param
-   */
-  postTask(params){
-    return new Promise((resolve, reject) => {
-      request.post('/vul/getVulType', params).then(res =>{
-        resolve(res)
-        console.log(res)
-      }).catch( err =>{
-        reject(err)
-      })
-    })
-  },
+  // /**
+  //  * 创建任务
+  //  * @param param
+  //  */
+  // postTask(params){
+  //   return new Promise((resolve, reject) => {
+  //     request.post('/vul/getVulType', params).then(res =>{
+  //       resolve(res)
+  //       console.log(res)
+  //     }).catch( err =>{
+  //       reject(err)
+  //     })
+  //   })
+  // },
   /**
    * 控制台详情数据
    * @param params

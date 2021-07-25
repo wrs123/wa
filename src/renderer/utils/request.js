@@ -4,7 +4,7 @@ import qs from 'qs';
 
 
 let BASE_URL_CUI = "http://10.31.16.117:19999/api/v1";
-let BASE_URL_XING = "http://10.31.16.192:19999/api/v1";
+let BASE_URL_XING = "http://192.168.1.198:19999/api/v1";
 
 // 创建axios实例
 const request = axios.create({

@@ -12,10 +12,10 @@
           <div class="box-title">
             <span>{{activeTask.task_name}}报告</span>
             <div class="action-buttong">
-              <Button icon="md-cloud-download" type="primary" @click="downloadReport()">下载</Button>
+              <Button icon="md-cloud-download" type="primary" @click="handleDown">下载</Button>
             </div>
           </div>
-          <div class="box-content">
+          <div class="box-content" id="demo">
             <span class="title1 line">1. 概述</span>
             <span class="title2 line u1">1.1 任务信息</span>
             <span class="text line u2">本次任务共发现 <span style="color: #2d8cf0;font-weight: bold;">{{reportData.assetNum}}</span>
@@ -82,6 +82,7 @@ import assetPersentListTemplate from '../components/reportTemplate/assetPersentL
 import leakListTemplate from "../components/leakLIstTemplate";
 import tableListTemplate from '@/components/tableListTemplate';
 import hostLayerTemplate from '@/components/hostLayerTemplate';
+import htmlToPdf from '@/utils/htmlToPdf'
 
 export default {
   name: "report",
@@ -242,6 +243,9 @@ export default {
     this.getReport()
   },
   methods: {
+    handleDown () {
+      htmlToPdf.downloadPDF(document.querySelector('#demo'), '扫描报告')
+    },
     getReport(){
       if(!this.loading){
         this.loading = true

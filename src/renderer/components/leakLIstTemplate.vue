@@ -8,6 +8,9 @@
       <Row>
         <span class="temTitle">url：</span>
         <span class="temContent">{{data.url}}</span></Row>
+      <Row>
+        <span class="temTitle">cve编号：</span>
+        <span class="temContent">{{data.url}}</span></Row>
     </Col>
   </div>
 </template>
