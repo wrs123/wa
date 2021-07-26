@@ -140,12 +140,12 @@ export default {
       })
     },
     changeActiveTask(data){
-      console.log(data)
       let param = {
         id: data.value,
         task_name: data.label
       }
       this.setActiveTask(param)
+      this.getLeakType()
     },
     clickItem(res){
       if(res.name != this.$data.activeMenuItem){

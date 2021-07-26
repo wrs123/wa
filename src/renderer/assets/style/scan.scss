@@ -300,6 +300,9 @@
 .leak-item .leak{
   width: 50%;
   font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .leak-item .url{

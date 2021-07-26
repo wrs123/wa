@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="453d145d-f765-40db-9fff-8324ded6b66e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/assets/style/leak.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/assets/style/leak.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/assets/style/scan.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/assets/style/scan.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/page/asset.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/asset.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/page/leak.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/leak.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/page/report.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/page/report.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/utils/htmlToPdf.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/utils/htmlToPdf.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,17 +67,6 @@
     </key>
   </component>
   <component name="RunManager" selected="npm.dev">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -137,7 +129,9 @@
       <workItem from="1626918277007" duration="6721000" />
       <workItem from="1627001468363" duration="3679000" />
       <workItem from="1627090854373" duration="2653000" />
-      <workItem from="1627178061390" duration="13175000" />
+      <workItem from="1627178061390" duration="13788000" />
+      <workItem from="1627264335645" duration="216000" />
+      <workItem from="1627267690370" duration="1053000" />
     </task>
     <servers />
   </component>

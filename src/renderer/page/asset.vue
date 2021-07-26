@@ -236,6 +236,10 @@ export default {
         task_name: data.label
       }
       this.setActiveTask(param)
+      this.getAssetList([{
+        page: 1,
+        limit: 5
+      }])
     },
     changePage(data){
       this.activeChild.page = data

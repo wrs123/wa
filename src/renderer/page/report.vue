@@ -246,7 +246,7 @@ export default {
   },
   methods: {
     handleDown () {
-      let that = this
+      this.$Message.info('生成报告中');
       htmlToPdf.downloadPDF(document.querySelector('#demo'), '扫描报告', (res) => {
         this.$Message.success('生成报告成功,导出中，清耐心等待');
       })
@@ -333,13 +333,7 @@ export default {
             labelLine: {
               show: false
             },
-            data: [
-              {value: 1048, name: '搜索引擎'},
-              {value: 735, name: '直接访问'},
-              {value: 580, name: '邮件营销'},
-              {value: 484, name: '联盟广告'},
-              {value: 300, name: '视频广告'}
-            ]
+            data: this.reportData.serviceData
           }
         ]
       }
